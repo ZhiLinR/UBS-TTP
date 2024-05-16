@@ -1,14 +1,11 @@
 
 //retrieve environment variables
-require('dotenv').config({ path: ['.env.local', '.env'] })
-
-//setup database connection
-require('./model/database.js')
+require('dotenv').config({ path: ['.env.local', '.env'] });
 
 //Express Server
-const express = require('express')
-const app = express()
-const PORT = process.env.PORT
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT;
 
 //Dependencies for Data Processing
 var cors = require('cors')
@@ -26,8 +23,8 @@ app.use(forms.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
-require('./routes.js')(app)
+require('./routes.js')(app);
 
 app.listen(PORT, () => {
-    console.log("TTP Admin/Forum NodeJS-Express-MongoDB Microservice Started")
+    console.log("TTP Admin/Forum NodeJS-Express-MongoDB Microservice Started");
 })
