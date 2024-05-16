@@ -17,17 +17,15 @@ exports.getAllDocuments = async () => {
     } catch (error) {
         throw new Error("Server Error Occurred");
     }
-    finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
 }
 
 /**
- * Query the defined collection for the Admin/Forum microservice.
+ * Query the defined collection for the Admin/Forum microservice
+ * for 1 specified document.
  * 
+ * 1 function parameter expected.
  * @param {String} post_id - unique post_id field in each document
- * @return 1 matching document of the collection
+ * @return 1 matching post of the collection
  */
 exports.getPostbyID = async (post_id) => {
     try {
