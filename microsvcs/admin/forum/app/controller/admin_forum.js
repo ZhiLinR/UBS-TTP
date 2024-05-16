@@ -5,12 +5,10 @@ const QUERIES = require("../model/forum_model.js")
 
 // FUNCTION EXPORTS --------------------------------------------------------
 /**
- * Responds with an array of all documents contained
+ * Returns an array of all documents contained
  * within the collection on success
  * 
- * No parameters expected.
- * @success HTTP status 200 & array of documents
- * @error HTTP error status with error message
+ * No request parameter or query expected.
  */
 exports.getAllPosts = async (req, res) => {
     try {
@@ -26,13 +24,11 @@ exports.getAllPosts = async (req, res) => {
 };
 
 /**
- * Responds with a single document containing the
+ * Returns a single document containing the
  * requested post
  * 
- * 1 parameter expected.
+ * 1 request parameter expected.
  * @param {String} post_id - unique post_id field in each document
- * @success HTTP status 200 & array of documents
- * @error HTTP error status with error message
  */
 exports.getPostbyID = async (req, res) => {
     try {
