@@ -1,13 +1,11 @@
-'use strict' 
-
+import express, { Express, Request, Response } from "express";
 
 //retrieve environment variables
 require('dotenv').config({ path: ['.env.local', '.env'] });
 
 //Express Server
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT;
+const app: Express = express();
+const PORT = process.env.PORT || 8200;
 
 //Dependencies for Data Processing
 var cors = require('cors')
@@ -25,8 +23,10 @@ app.use(forms.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
-require('./routes.js')(app);
+export type app = Express;
+
+require('./routes.ts')(app);
 
 app.listen(PORT, () => {
-    console.log("TTP Admin/Forum NodeJS-Express-MongoDB Microservice Started");
+    console.log("TTP GPT Generation Microservice Started");
 })
