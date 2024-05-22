@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: ['../.env.local', '../.env'] })
+
+
 import OpenAI from "openai";
 
 const openai = new OpenAI();
