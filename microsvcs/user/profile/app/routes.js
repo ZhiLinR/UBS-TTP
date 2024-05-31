@@ -2,11 +2,13 @@
 const DEF_ROUTE = process.env.API_PATH.concat(process.env.ROUTE);
 
 module.exports = app => {
-    const USER = require("./controller/user_controller.js");
+    const USER = require("./controller/user_con.js");
+    const PROFILE = require("./controller/profile_con.js");
     var router = require("express").Router();
 
-    //get profiling data
-    router.get("/getProfile/:uid", USER.getProfileByUID);
+    router.get("/getProfile/:uid", PROFILE.getProfileByUID);
+    router.put("/update/:uid", PROFILE.updateProfileInfo);
+
     router.post("/register", USER.createNewUser);
 
     // Route Definition
