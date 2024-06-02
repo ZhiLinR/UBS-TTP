@@ -1,7 +1,5 @@
 const database = require('./util/init_db');
 
-
-//Define User  Collection
 const USER_COLLECTION = database.collection(process.env.USER_COLLECTION);
 
 /**
@@ -26,5 +24,4 @@ exports.createNewUser = async (uid, name) => {
     }
 }
 
-//TODO: UPDATE a User
 

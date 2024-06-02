@@ -1,4 +1,3 @@
-// routes.js
 const DEF_ROUTE = process.env.API_PATH.concat(process.env.ROUTE);
 
 module.exports = app => {
@@ -11,6 +10,5 @@ module.exports = app => {
 
     router.post("/register", USER.createNewUser);
 
-    // Route Definition
     app.use(DEF_ROUTE, router);
 }

@@ -1,7 +1,5 @@
-// Import Database Functions
 const QUERIES = require("../model/profile.js")
 
-// FUNCTION EXPORTS --------------------------------------------------------
 /**
  * Responds with a single document containing the
  * requested post
@@ -23,7 +21,6 @@ exports.getProfileByUID = async (req, res) => {
     };
 };
 
-//TODO: Update Profile
 exports.updateProfileInfo = async (req, res) => {
     try {
         const uid = req.params.uid;

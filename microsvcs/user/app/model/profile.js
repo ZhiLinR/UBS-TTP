@@ -1,8 +1,5 @@
-//This file is for profile data 
-
 const database = require('./util/init_db');
 
-//Define Profile Collection
 const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
 
 /**

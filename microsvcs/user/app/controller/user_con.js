@@ -1,7 +1,4 @@
-// Import Database Functions
 const QUERIES = require("../model/user.js")
-
-// LOCAL FUNCTIONS --------------------------------------------------------
 
 /**
  * Registers a new user using email and name. Email should be unique.
