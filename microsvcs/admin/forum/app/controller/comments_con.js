@@ -1,9 +1,6 @@
-// Import Database Functions
 const QUERIES = require("../model/comments_model.js")
+const HANDLER = require("../util/handler.js")
 
-// LOCAL FUNCTIONS --------------------------------------------------------
-
-// FUNCTION EXPORTS --------------------------------------------------------
 /**
  * Add a comment
  * 
@@ -20,16 +17,16 @@ exports.addComment = async (req, res) => {
         const result = await QUERIES.addComment(post_id, uid, comment)
         // Check if it has been successfully modified
         if (result.modifiedCount) {
-            res.status(200).send({ message: "comment added" });
+            res.status(200).send(HANDLER.createSuccessResponse("Comment Added", result));
         } else {
             throw new Error("Incorrect Parameters.")
         }
 
     } catch (error) {
         if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
+            res.status(500).send(HANDLER.createErrorResponse(error.message));
         } else {
-            res.status(404).send({ message: error.message });
+            res.status(404).send(HANDLER.createErrorResponse(error.message));
         }
     };
 };

@@ -1,9 +1,6 @@
-// Import Database Functions
 const QUERIES = require("../model/forum_model.js")
+const HANDLER = require("../util/handler.js")
 
-// LOCAL FUNCTIONS --------------------------------------------------------
-
-// FUNCTION EXPORTS --------------------------------------------------------
 /**
  * Responds with an array of all documents contained
  * within the collection on success
@@ -15,12 +12,12 @@ const QUERIES = require("../model/forum_model.js")
 exports.getAllPosts = async (req, res) => {
     try {
         const result = await QUERIES.getAllPosts()
-        res.status(200).send(result);
+        res.status(200).send(HANDLER.createSuccessResponse("successful", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
+            res.status(500).send(HANDLER.createErrorResponse(error.message));
         } else {
-            res.status(404).send({ message: error.message });
+            res.status(404).send(HANDLER.createErrorResponse(error.message));
         }
     };
 };
@@ -38,12 +35,12 @@ exports.getPostbyID = async (req, res) => {
     try {
         const post_id = req.params.post_id;
         const result = await QUERIES.getPostbyID(post_id)
-        res.status(200).send(result);
+        res.status(200).send(HANDLER.createSuccessResponse("successful", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
+            res.status(500).send(HANDLER.createErrorResponse(error.message));
         } else {
-            res.status(404).send({ message: error.message });
+            res.status(404).send(HANDLER.createErrorResponse(error.message));
         }
     };
 };
@@ -61,12 +58,12 @@ exports.newPost = async (req, res) => {
     try {
         const post_id = req.params.post_id;
         const result = await QUERIES.newPost(post_id)
-        res.status(200).send(result);
+        res.status(200).send(HANDLER.createSuccessResponse("Post Created", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
+            res.status(500).send(HANDLER.createErrorResponse(error.message));
         } else {
-            res.status(404).send({ message: error.message });
+            res.status(404).send(HANDLER.createErrorResponse(error.message));
         }
     };
 };

@@ -1,6 +1,5 @@
 const database = require('./util/init_db')
 
-//Define Forum Collection
 const collection = database.collection(process.env.FORUM_COLLECTION);
 
 /**
