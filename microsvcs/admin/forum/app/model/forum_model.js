@@ -60,8 +60,8 @@ exports.newPost = async (uid, content) => {
 /**
  * Marks a post for deletion
  * 
- * @param {String} uid - admin id, currently email 
  * @param {String} post_id - unique post_id field in each document
+ * @param {String} content - replaces content field
  */
 exports.updatePost = async (post_id, content) => {
     try {
@@ -74,7 +74,7 @@ exports.updatePost = async (post_id, content) => {
                 lastModified: true,
             },
             $set: {
-                content: content
+                content: content //TODO: Look at only replacing fields mentioned in this object
             }
         };
         const result = await collection.updateOne(filter, updateDoc, options);
@@ -87,7 +87,7 @@ exports.updatePost = async (post_id, content) => {
 /**
  * Marks a post for deletion
  * 
- * @param {String} uid - admin id, currently email 
+ * @param {String} uid - admin id, currently email
  * @param {String} post_id - unique post_id field in each document
  */
 exports.deletePost = async (uid, post_id) => {
@@ -107,7 +107,7 @@ exports.deletePost = async (uid, post_id) => {
         };
         const result = await collection.updateOne(filter, updateDoc, options);
 
-        return result.insertedId;
+        return result;
     } catch (error) {
         throw new Error("Server Error Occurred")
     }

@@ -50,7 +50,7 @@ exports.getPostbyID = async (req, res) => {
  * make a new post
  * 
  * @param {String} req.params.uid - admin id, currently email 
- * @param {JSON} req.body.content - json body/ form data
+ * @param {JSON} req.body - json body/ form data
  */
 exports.newPost = async (req, res) => {
     try {
@@ -71,7 +71,7 @@ exports.newPost = async (req, res) => {
  * update a post
  * 
  * @param {String} req.params.uid - admin id, currently email 
- * @param {JSON} req.body.content - json body/ form data
+ * @param {JSON} req.body - json body/ form data
  */
 exports.updatePost = async (req, res) => {
     try {
@@ -97,7 +97,7 @@ exports.updatePost = async (req, res) => {
  * delete a post using unique post id (document's id)
  * 
  * @param {String} post_id - unique post_id field in each document
- * @param {String} post_id - unique post_id field in each document
+ * @param {String} uid - gets the admin id for who flagged deletion
  */
 exports.deletePost = async (req, res) => {
     try {
