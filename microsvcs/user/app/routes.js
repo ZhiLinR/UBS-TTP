@@ -5,10 +5,10 @@ module.exports = app => {
     const PROFILE = require("./controller/profile_con.js");
     var router = require("express").Router();
 
-    router.get("/getProfile/:uid", PROFILE.getProfileByUID);
-    router.put("/update/:uid", PROFILE.updateProfileInfo);
+    router.get("/profile/:uid", PROFILE.getProfileByUID);
+    router.put("/profile/:uid", PROFILE.updateProfileInfo);
 
-    router.post("/register", USER.createNewUser);
+    router.post("/profile", USER.createNewUser);
 
     app.use(DEF_ROUTE, router);
 }
