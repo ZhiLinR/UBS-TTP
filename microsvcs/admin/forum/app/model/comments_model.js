@@ -1,8 +1,6 @@
 const database = require('./util/init_db')
 const { ObjectId } = require('mongodb');
 
-
-//Define Forum Collection
 const collection = database.collection(process.env.FORUM_COLLECTION);
 
 /**
@@ -22,14 +20,13 @@ exports.addComment = async (post_id, uid, comment) => {
             comment: comment,
             date: new Date().toISOString()
         }
-        //So that a new document is never made just in case.
+        //{ upsert: false } so that a new document is never made just in case.
         const options = { upsert: false };
         const updateDoc = {
             $push: {
                 comments: comment_arry_element
             },
         };
-        // Update the first document that matches the filter
         const result = await collection.updateOne(filter, updateDoc, options);
         return result;
     } catch (error) {
