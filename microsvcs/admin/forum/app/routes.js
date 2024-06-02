@@ -6,17 +6,17 @@ module.exports = app => {
     const COMMENTS = require("./controller/comments_con.js");
     var router = require("express").Router();
 
-    // TODO: GET posts on forum
+    // Forum Specific 
     router.get("/posts", FORUM.getAllPosts);
     router.get("/posts/:post_id", FORUM.getPostbyID);
 
-    // TODO: POST on forum
-    // router.post("/newPost", FORUM.getAllPosts);
+    router.post("/posts/:uid", FORUM.newPost);
+    router.put("/posts/:post_id", FORUM.updatePost);
+    router.delete("/posts/:post_id/:uid", FORUM.deletePost);
+    
+    //TODO: Update Posts
 
-
-    // TODO: DELETE posts on forum
-
-    // Routes for Comments--------------------------------------------------------------
+    // Comment Specific
     router.put("/posts/:post_id/comments/:uid", COMMENTS.addComment);
     router.delete("/posts/:post_id/comments/:uid", COMMENTS.deleteComment);
 
