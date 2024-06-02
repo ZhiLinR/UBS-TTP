@@ -18,6 +18,7 @@ module.exports = app => {
 
     // Routes for Comments--------------------------------------------------------------
     router.put("/posts/:post_id/comments/:uid", COMMENTS.addComment);
-    // Route Definition
+    router.delete("/posts/:post_id/comments/:uid", COMMENTS.deleteComment);
+
     app.use(DEF_ROUTE, router);
 }
