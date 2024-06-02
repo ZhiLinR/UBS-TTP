@@ -1,5 +1,5 @@
 // routes.js
-const DEF_ROUTE = process.env.API_PATH.concat(process.env.ROUTE);
+const DEF_ROUTE = "/api";
 
 module.exports = app => {
     const FORUM = require("./controller/forum_con.js");
@@ -7,8 +7,8 @@ module.exports = app => {
     var router = require("express").Router();
 
     // TODO: GET posts on forum
-    router.get("/getAllPosts", FORUM.getAllPosts);
-    router.get("/getPost/:post_id", FORUM.getPostbyID);
+    router.get("/posts", FORUM.getAllPosts);
+    router.get("/posts/:post_id", FORUM.getPostbyID);
 
     // TODO: POST on forum
     // router.post("/newPost", FORUM.getAllPosts);
@@ -17,7 +17,7 @@ module.exports = app => {
     // TODO: DELETE posts on forum
 
     // Routes for Comments--------------------------------------------------------------
-    router.put("/comment/:post_id/:uid", COMMENTS.addComment);
+    router.put("/posts/:post_id/comments/:uid", COMMENTS.addComment);
     // Route Definition
     app.use(DEF_ROUTE, router);
 }
