@@ -1,4 +1,4 @@
-const DEF_ROUTE = process.env.API_PATH;
+const DEF_ROUTE = "/api";
 
 module.exports = app => {
     const USER = require("./controller/user_con.js");
