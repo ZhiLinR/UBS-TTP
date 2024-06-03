@@ -12,9 +12,13 @@ const collection = database.collection(process.env.FORUM_COLLECTION);
  */
 exports.getAllPosts = async () => {
     try {
-        let result = await collection.find().toArray();
+        const query = { flag: { $not: { $eq: "D" } } };
+
+        let result = await collection.find(query).toArray();
+
         return result;
     } catch (error) {
+        console.log(error)
         throw new Error("Server Error Occurred");
     }
 }
