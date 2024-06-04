@@ -47,10 +47,10 @@ exports.getPostbyID = async (post_id) => {
  * @param {String} uid - admin id, currently email 
  * @param {JSON} content - json body/ form data
  */
-exports.newPost = async (uid, content) => {
+exports.newPost = async (content) => {
     try {
         const doc = {
-            admin_uid: uid,
+            admin: content.uid,
             timestamp: new Date().toISOString(),
             content: content,
         };
@@ -71,7 +71,7 @@ exports.updatePost = async (post_id, content) => {
     try {
         const filter = { "_id": new ObjectId(post_id) };
 
-        //{ upsert: false } so that a new document is never made just in case.
+        //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
         const updateDoc = {
             $currentDate: {
@@ -98,7 +98,7 @@ exports.deletePost = async (uid, post_id) => {
     try {
         const filter = { "_id": new ObjectId(post_id) };
 
-        //{ upsert: false } so that a new document is never made just in case.
+        //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
         const updateDoc = {
             $currentDate: {

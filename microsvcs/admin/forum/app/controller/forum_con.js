@@ -54,9 +54,8 @@ exports.getPostbyID = async (req, res) => {
  */
 exports.newPost = async (req, res) => {
     try {
-        const uid = req.params.uid;
         const content = req.body;
-        const result = await QUERIES.newPost(uid, content)
+        const result = await QUERIES.newPost(content)
         res.status(200).send(HANDLER.createSuccessResponse("Post Created", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
@@ -75,7 +74,7 @@ exports.newPost = async (req, res) => {
  */
 exports.updatePost = async (req, res) => {
     try {
-        const post_id = req.params.post_id;
+        const post_id = req.body.post_id;
         const content = req.body;
         const result = await QUERIES.updatePost(post_id, content)
         if (result.modifiedCount == 1) {
