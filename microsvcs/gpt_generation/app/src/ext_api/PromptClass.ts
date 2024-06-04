@@ -15,7 +15,7 @@ export class _Prompt {
             User Profile: ${profile}
             Audience Profile: ${audience}
             Generate a inclusivity training scenario on the topic of ${topic}. You will play as the main character in the situation who 
-            interacts with the defined audience profile.
+            interacts with the defined audience profile. Include background specific details from the user profile
 
             Generate a passive, reactive, active, proactive response toward this scenario.
 
@@ -28,11 +28,10 @@ export class _Prompt {
     public createProfilePrompt(topic: string) {
         let generated_prompt: string = `
             Topic: ${topic}
-            Generate a random user profile using this topic.
-
-            Remove any identifiable traits. Use first person language for these options.
-            Place the data in the following JSON format {"gender":"","age":"","job_title":"","company_seniority":""}
-    `
+            Generate a random user profile using this topic. Include their gender, age, job title, company seniority and a 50 word biography. 
+            Remove any identifiable traits.
+            Place the options in the following JSON format, ensure that the keys are enclosed in quotes
+            {"gender":"","age":"","job_title":"","seniority":"","biography":""}`
         return generated_prompt;
     }
 
