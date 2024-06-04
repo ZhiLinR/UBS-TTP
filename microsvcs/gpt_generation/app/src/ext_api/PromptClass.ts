@@ -14,12 +14,13 @@ export class _Prompt {
         let generated_prompt: string = `
             User Profile: ${profile}
             Audience Profile: ${audience}
-            Generate a inclusivity training scenario on the topic of ${topic}. You will play as the main character in the situation who 
-            interacts with the defined audience profile. Include background specific details from the user profile
+            Generate a inclusivity training scenario on the topic of ${topic} in past tense. You will play as the main character in the situation who 
+            interacts with the defined audience profile. Include background specific details from the user profile to include as your personal traits.
+            Be specific about the culture, race, gender, job scope or background when creating the scenario.
+            Use "I" to refer to yourself for the subject of the scenario and end off the scenario with "What should I do?"
 
-            Generate a passive, reactive, active, proactive response toward this scenario.
-
-            Remove any identifiable traits. Use first person language for these options.
+            Generate a detailed passive, reactive, active, proactive response toward this scenario.
+            Remove any identifiable traits. Incorporate the use of "you should" for these options.
             Place the options in the following JSON format 
             {"scenario":"","options":{ "passive":"","reactive":"","proactive":"","active":"" }}
             `

@@ -18,8 +18,9 @@ export class Scenario {
     this.topic = topic || InitTopic.RANDOM_TOPIC;
     this.promptClass = new _Prompt();
   }
+  
   public async generateScenario() {
-    let profile_info = await InitUser._initialiseProfile("sammyho@email.com");
+    let profile_info = await InitUser._initialiseProfile(this.uid);
     let generate_audience = await this._generateProfile() || "generic"
     let content = this.promptClass.createScenarioPrompt(profile_info, generate_audience, this.topic);
     let result = await connectOpenAI(content);
