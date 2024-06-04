@@ -11,16 +11,14 @@ Responds with a single document containing the requested post<br>
 1 parameter expected.
 - @param post_id — unique post_id field in each document
 
-## POST /posts/:uid
+## POST /posts/
 make a new post
 
-- @param req.params.uid — admin id, currently email
 - @param req.body — json body/ form data
 
-## PUT /posts/:post_id
+## PUT /posts/
 update a post
 
-- @param req.params.uid — admin id, currently email
 - @param req.body — json body/ form data
 
 ## DELETE /posts/:post_id/:uid

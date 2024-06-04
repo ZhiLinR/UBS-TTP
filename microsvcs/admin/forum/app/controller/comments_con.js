@@ -10,8 +10,8 @@ const HANDLER = require("../util/handler.js")
  */
 exports.addComment = async (req, res) => {
     try {
-        const uid = req.params.uid;
-        const post_id = req.params.post_id;
+        const uid = req.body.uid;
+        const post_id = req.body.post_id;
         const comment = req.body.comment;
 
         const result = await QUERIES.addComment(post_id, uid, comment)
