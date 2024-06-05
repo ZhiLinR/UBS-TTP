@@ -11,8 +11,8 @@ module.exports = app => {
     router.get("/posts/:post_id", FORUM.getPostbyID);
 
     router.post("/posts", FORUM.newPost);
-    router.put("/posts", FORUM.updatePost);
-    router.delete("/posts/:post_id/:uid", FORUM.deletePost);
+    router.put("/posts/:post_id", FORUM.updatePost);
+    router.delete("/posts", FORUM.deletePost);
 
     // Comment Specific
     router.put("/posts/comments/", COMMENTS.addComment);

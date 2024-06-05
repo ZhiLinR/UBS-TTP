@@ -54,8 +54,8 @@ exports.getPostbyID = async (req, res) => {
  */
 exports.newPost = async (req, res) => {
     try {
-        const content = req.body;
-        const result = await QUERIES.newPost(content)
+        const body = req.body;
+        const result = await QUERIES.newPost(body)
         res.status(200).send(HANDLER.createSuccessResponse("Post Created", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
@@ -69,14 +69,14 @@ exports.newPost = async (req, res) => {
 /**
  * update a post
  * 
- * @param {String} req.params.uid - admin id, currently email 
+ * @param {String} req.params.post_id - unique post_id; mongo document object ID
  * @param {JSON} req.body - json body/ form data
  */
 exports.updatePost = async (req, res) => {
     try {
-        const post_id = req.body.post_id;
-        const content = req.body;
-        const result = await QUERIES.updatePost(post_id, content)
+        const post_id = req.params.post_id;
+        const body = req.body;
+        const result = await QUERIES.updatePost(post_id, body)
         if (result.modifiedCount == 1) {
             res.status(200).send(HANDLER.createSuccessResponse("Post Updated", result)); 
         } else {
@@ -100,8 +100,8 @@ exports.updatePost = async (req, res) => {
  */
 exports.deletePost = async (req, res) => {
     try {
-        const post_id = req.params.post_id;
-        const uid = req.params.uid;
+        const post_id = req.body.post_id;
+        const uid = req.body.admin_uid;
         const result = await QUERIES.deletePost(uid, post_id)
         res.status(200).send(HANDLER.createSuccessResponse("Post Flagged for Deletion", result));
     } catch (error) {

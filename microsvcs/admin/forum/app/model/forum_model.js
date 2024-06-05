@@ -12,7 +12,7 @@ const collection = database.collection(process.env.FORUM_COLLECTION);
  */
 exports.getAllPosts = async () => {
     try {
-        const query = { flag: { $not: { $eq: "D" } } };
+        const query = { status: { flag: { $not: { $eq: "D" } } } };
 
         let result = await collection.find(query).toArray();
 
@@ -47,12 +47,12 @@ exports.getPostbyID = async (post_id) => {
  * @param {String} uid - admin id, currently email 
  * @param {JSON} content - json body/ form data
  */
-exports.newPost = async (content) => {
+exports.newPost = async (body) => {
     try {
         const doc = {
-            admin: content.uid,
-            timestamp: new Date().toISOString(),
-            content: content,
+            "created_by": body.admin_uid,
+            "timestamp": new Date().toISOString(),
+            "post_content": body.main_content,
         };
         let result = await collection.insertOne(doc);
 
@@ -62,14 +62,14 @@ exports.newPost = async (content) => {
     }
 }
 /**
- * Marks a post for deletion
+ * Update a post.
  * 
  * @param {String} post_id - unique post_id field in each document
  * @param {String} content - replaces content field
  */
-exports.updatePost = async (post_id, content) => {
+exports.updatePost = async (post_id, body) => {
     try {
-        const filter = { "_id": new ObjectId(post_id) };
+        const filter = { $and: [{ "_id": new ObjectId(post_id), "admin": body.admin_uid }] };
 
         //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
@@ -78,7 +78,7 @@ exports.updatePost = async (post_id, content) => {
                 lastModified: true,
             },
             $set: {
-                content: content //TODO: Look at only replacing fields mentioned in this object
+                "post_content": body.main_content //TODO: Look at only replacing fields mentioned in this object
             }
         };
         const result = await collection.updateOne(filter, updateDoc, options);
@@ -105,8 +105,10 @@ exports.deletePost = async (uid, post_id) => {
                 lastModified: true,
             },
             $set: {
-                flag: "D",
-                admin_uid: uid
+                status: {
+                    "flag": "D",
+                    "raised_by": uid
+                }
             },
         };
         const result = await collection.updateOne(filter, updateDoc, options);
