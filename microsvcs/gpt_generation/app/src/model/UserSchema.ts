@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { usersModel } from './mongo_conn.js';
 
 run().catch(err => console.log(err));
