@@ -14,8 +14,8 @@ dotenv.config({ path: __dirname + '/.env' })
 export const API_PATH: string = process.env.API_PATH || "8000".concat(process.env.ROUTE || '/dev');
 
 //MongoDB
-export const MONGO_URL: string = process.env.MONGO_CLIENT || "127.0.0.1:27017";;
-export const MONGO_CREDENTIALS: string = process.env.MONGO_CERT_PATH || "rootCA.pem";
+export const MONGO_URL: string = process.env.MONGO_CLIENT || "127.0.0.1:27017";
+export const MONGO_CREDENTIALS: string = __dirname.concat("/",process.env.MONGO_CERT_PATH || "rootCA.pem");
 
 //OpenAI API
 export const OPENAI_API_KEY: string = process.env.OPENAI_API_KEY || 'No API Key'
