@@ -1,33 +1,45 @@
-console.log('Try c/fix!');
+//Environment Variable Setup
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-const trailing = 'Semicolon';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const why = {am: 'I tabbed?'};
+import dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '.env' })
 
-const iWish = "I didn't have a trailing space...";
+//Express Server
+import express, { Express, Request, Response } from "express";
 
-const sicilian = true;
+const app: Express = express();
+const PORT = 8200;
 
-const vizzini = sicilian ? !sicilian : sicilian;
+//Routes
+import { routes } from './routes.js'
 
-const re = /foo {3}bar/;
+//Dependencies for Data Processing
+import cors from 'cors';
+import bodyParser from 'body-parser';
+//import multer from 'multer';
+//var forms = multer();
 
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  console.log(longString, trailing, why, iWish, vizzini, re);
-  return;
-}
-// TODO: more examples
+// parse requests of content-type - application/json
+app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+//app.use(forms.array());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
+
+export type app = Express;
+
+app.use('/api', routes);
+
+app.listen(PORT, () => {
+  console.log("TTP GPT Generation Microservice Started");
+})
