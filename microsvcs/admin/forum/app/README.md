@@ -21,10 +21,10 @@ Sample of POST Request Body for this API:
 ```
 {
     "main_content":{ // Post Content
-        "title":Upcoming Workshop,
-        "description":Sign up for Workshop
+        "title": "Upcoming Cleanest Coding Workshop",
+        "description": "Sign up for Workshop"
     } 
-    "admin_uid":sammy@email.com // Where uid represents the administrator who made the post
+    "admin_uid":"sammyho@email.com"// Where uid represents the administrator who made the post
 }
 ```
 
@@ -99,9 +99,7 @@ If the post_id or the admin_uid does not match the record in the database, the f
 
 ```
 {
-    "main_content": {
-        ...
-    },
+    "main_content": {...},
     "admin_uid": "sammyho@email.com" //this administrator did not make this post 
 }
 
