@@ -20,6 +20,8 @@
     "posttest": "npm.cmd run lint"
   },
   "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.11",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
