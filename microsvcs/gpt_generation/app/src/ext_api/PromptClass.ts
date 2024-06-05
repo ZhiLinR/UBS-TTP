@@ -5,7 +5,7 @@
 export class _Prompt {
     /**
      * Inserts the parameters into different parts of the text prompt as appropriate.
-     * @param profile - The user profile retreieved from the Profile Microservice.
+     * @param profile - The user profile retrieved from the Profile Microservice.
      * @param audience - The randomly generated audience for the user to interact. See {@link createProfilePrompt} for details.
      * @param topic - A scenario topic. See topic.ts for the current full list of topics.
      * @returns A large chunk of text prompt to be inserted into OpenAI API.
@@ -42,6 +42,12 @@ export class _Prompt {
         return generated_prompt;
     }
 
+    /**
+     * This function creates a prompt to generate a personality summary from the user's interactions.
+     * @param profile_data - The user profile retrieved from the Profile Microservice.
+     * @param scenario_data - A compilation of the user's reactions to presented scenarios
+     * @returns A large chunk of text prompt to be inserted into OpenAI API.
+     */
     protected createSummaryPrompt(profile_data:string, scenario_data: string) {
         let generated_prompt: string = `
         Summarise the following profile data into a personality in 70 words in second person language. Do not include specific occupational information.

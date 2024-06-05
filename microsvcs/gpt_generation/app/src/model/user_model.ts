@@ -21,6 +21,11 @@ export async function createEntry(uid: string, scenario: string, option: string)
   }
 }
 
+/**
+ * This function retrieves all known records of the user's scenarios experiences and their choices.
+ * @param uid user's id, currently email.
+ * @returns a compilation of the scenario's and options the user has selected.
+ */
 export async function getSummarised(uid: string){
   let result = await usersModel.find({ uid: uid }).exec();
   return result
