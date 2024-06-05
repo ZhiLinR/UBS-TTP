@@ -42,4 +42,15 @@ export class _Prompt {
         return generated_prompt;
     }
 
+    protected createSummaryPrompt(profile_data:string, scenario_data: string) {
+        let generated_prompt: string = `
+        Summarise the following profile data into a personality in 70 words in second person language. Do not include specific occupational information.
+        User Profile: ${profile_data}
+        Situational Behaviour: ${scenario_data}
+        Place the options in the following JSON format, ensure that the keys are enclosed in quotes
+        {"profile_summary":""}`
+
+        return generated_prompt;
+    }
+
 }

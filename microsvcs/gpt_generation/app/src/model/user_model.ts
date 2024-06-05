@@ -21,7 +21,7 @@ export async function createEntry(uid: string, scenario: string, option: string)
   }
 }
 
-//TODO: GPT summary of the user personality
-export async function getSummarised(){
-
+export async function getSummarised(uid: string){
+  let result = await usersModel.find({ uid: uid }).exec();
+  return result
 }

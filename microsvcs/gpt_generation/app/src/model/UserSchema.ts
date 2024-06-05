@@ -21,4 +21,6 @@ const userSchema = new Schema<IUserScenario>({
   option: { type: String, required: true }
 }, { timestamps: true });
 
+userSchema.set('toJSON', { virtuals: true }); 
+
 export const usersModel = mongoose.model<IUserScenario>('User.Scenario', userSchema);

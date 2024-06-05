@@ -26,8 +26,18 @@ export class Scenario extends _Prompt {
     return result;
   }
 
+  /**
+   * generateSummary
+   */
+  public async generateSummary(scenario_data: string) {
+    let profile_info = await InitUser._initialiseProfile(this.uid);
+    let content = super.createSummaryPrompt(profile_info, scenario_data);
+    let result = await connectOpenAI(content);
+    return result;
+  }
+
   private async _generateProfile() {
-    let content =  super.createProfilePrompt(this.topic);
+    let content = super.createProfilePrompt(this.topic);
     let result = await connectOpenAI(content);
     return result
   }

@@ -1,8 +1,8 @@
-export function handleSuccessResponse(message:string, response?: string) {
+export function handleSuccessResponse(message:string, response?: string | undefined | null) {
     return {
         "message": message,
         "success": true,
-        "content": response,
+        "content": JSON.parse(response || "{'msg':'No Content to Parse'}"),
     };
 }
 
