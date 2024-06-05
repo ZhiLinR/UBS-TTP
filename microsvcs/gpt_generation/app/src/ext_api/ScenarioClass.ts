@@ -8,35 +8,30 @@ import { _Prompt } from './PromptClass.js';
  * @param {string | null | undefined} profile 
  * @returns 
  */
-export class Scenario {
+export class Scenario extends _Prompt {
   private uid: string;
   private topic: string;
-  private promptClass: _Prompt;
 
   public constructor(uid: string, topic?: string) {
+    super();
     this.uid = uid;
     this.topic = topic || InitTopic.RANDOM_TOPIC;
-    this.promptClass = new _Prompt();
   }
-  
+
   public async generateScenario() {
     let profile_info = await InitUser._initialiseProfile(this.uid);
     let generate_audience = await this._generateProfile() || "generic"
-    let content = this.promptClass.createScenarioPrompt(profile_info, generate_audience, this.topic);
+    let content = super.createScenarioPrompt(profile_info, generate_audience, this.topic);
     let result = await connectOpenAI(content);
     return result;
   }
 
-  public async _generateProfile() {
-    let content = this.promptClass.createProfilePrompt(this.topic);
+  private async _generateProfile() {
+    let content =  super.createProfilePrompt(this.topic);
     let result = await connectOpenAI(content);
     return result
   }
 }
-
-let new_prompt = new Scenario("sammyho@email.com");
-let response = await new_prompt.generateScenario()
-console.log(response)
 
 
 

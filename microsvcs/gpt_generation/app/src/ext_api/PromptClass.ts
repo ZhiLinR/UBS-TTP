@@ -1,16 +1,16 @@
-import * as PromptOptions from './init/topic.js';
-import * as OpenAIConfig from './ScenarioClass.js';
-
-import * as InitUser from './init/user.js'
-import * as InitPrompt from './init/topic.js';
-
 /**
- * This class should not interact with the controller at all. Contains the text prompts to be inserted into OpenAI API.
+ * Contains the text prompts to be inserted into OpenAI API.
  * Lowkey what is this code :wtf:
  */
 export class _Prompt {
-    //Public Function Call Accessible by OpenAI API
-    public createScenarioPrompt(profile: string, audience: string, topic: string) {
+    /**
+     * Inserts the parameters into different parts of the text prompt as appropriate.
+     * @param profile - The user profile retreieved from the Profile Microservice.
+     * @param audience - The randomly generated audience for the user to interact. See {@link createProfilePrompt} for details.
+     * @param topic - A scenario topic. See topic.ts for the current full list of topics.
+     * @returns A large chunk of text prompt to be inserted into OpenAI API.
+     */
+    protected createScenarioPrompt(profile: string, audience: string, topic: string) {
         let generated_prompt: string = `
             User Profile: ${profile}
             Audience Profile: ${audience}
@@ -26,7 +26,13 @@ export class _Prompt {
             `
         return generated_prompt;
     }
-    public createProfilePrompt(topic: string) {
+
+    /**
+     * This function randomly generates an audience for the user to interact with.
+     * @param topic A scenario topic. See topic.ts for the current full list of topics.
+     * @returns A large chunk of text prompt to be inserted into OpenAI API.
+     */
+    protected createProfilePrompt(topic: string) {
         let generated_prompt: string = `
             Topic: ${topic}
             Generate a random user profile using this topic. Include their gender, age, job title, company seniority and a 50 word biography. 
