@@ -1,7 +1,6 @@
 
 //retrieve environment variables
 require('dotenv').config({ path: ['.env.local', '.env'] });
-const errorMW = require('./middleware/error.js')
 
 //Express Server
 const express = require('express');
@@ -26,6 +25,11 @@ app.use(cors())
 
 require('./routes.js')(app);
 
+//Extra Middlewares
+const errorMW = require('./middleware/error.js')
+const responseMW = require('./middleware/response.js')
+
+app.use(responseMW.responseHandler);
 app.use(errorMW.errorHandler);
 
 app.listen(PORT, () => {
