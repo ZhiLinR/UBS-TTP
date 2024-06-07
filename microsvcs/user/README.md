@@ -8,7 +8,6 @@ Sample Success Response:
 {
     "success": true,
     "message": {
-        "_id": "666350518e5c4522aed85894",
         "uid": "666350518e5c4522aed85892",
         "lastModified": "2024-06-07T18:26:12.711Z",
         "gender": "female",
