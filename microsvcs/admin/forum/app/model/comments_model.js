@@ -7,7 +7,7 @@ const collection = database.collection(process.env.FORUM_COLLECTION);
  * Adds comment to the post using a push upsert to fieldvalue: comments
  * 
  * @param {String} post_id - unique _id field in each document
- * @param {JSON} uid - expecting userid of the commentor
+ * @param {String} uid - expecting userid of the commentor
  * @param {String} comment - user comment in plaintext
  * @return mongoDB default update response object
  */

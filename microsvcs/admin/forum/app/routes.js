@@ -12,7 +12,7 @@ module.exports = app => {
 
     router.post("/posts", FORUM.newPost);
     router.put("/posts/:post_id", FORUM.updatePost);
-    router.delete("/posts", FORUM.deletePost);
+    router.delete("/posts/:post_id", FORUM.deletePost);
 
     // Comment Specific
     router.put("/posts/comments/", COMMENTS.addComment);

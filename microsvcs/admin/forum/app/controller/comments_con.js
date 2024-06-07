@@ -4,7 +4,7 @@ const HANDLER = require("../util/handler.js")
 /**
  * Add a comment
  * 
- * @param {String} req.params.uid user id, currently email 
+ * @param {String} req.params.uid user id, unique uid field in db 
  * @param {String} req.params.post_id post_id - unique _id field in each document
  * @param {String} req.body.comment user comment in plaintext
  */
@@ -34,7 +34,7 @@ exports.addComment = async (req, res) => {
 /**
  * Delete a comment
  * 
- * @param {String} req.params.uid user id, currently email 
+ * @param {String} req.params.uid user id, unique uid field in db 
  * @param {String} req.params.post_id post_id - unique _id field in each document
  * @param {String} req.body.comment user comment in plaintext
  */

@@ -44,7 +44,7 @@ exports.getPostbyID = async (post_id) => {
  * Adds a new document describing the post content to db.
  * 
  * 1 function parameter expected.
- * @param {String} uid - admin id, currently email 
+ * @param {String} uid - admin id, unique uid field in db 
  * @param {JSON} content - json body/ form data
  */
 exports.newPost = async (body) => {
@@ -91,7 +91,7 @@ exports.updatePost = async (post_id, body) => {
 /**
  * Marks a post for deletion
  * 
- * @param {String} uid - admin id, currently email
+ * @param {String} uid - admin id, unique uid field in db
  * @param {String} post_id - unique post_id field in each document
  */
 exports.deletePost = async (uid, post_id) => {

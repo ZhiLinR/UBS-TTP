@@ -125,16 +125,14 @@ Sample of PUT Request Body for this API:
 
 ---
 
-# Section WIP
-
 ## PUT /posts/:post_id/comments/:uid
 Add a comment
-- @param req.params.uid — user id, currently email
+- @param req.params.uid — user id, unique uid field in db
 - @param req.params.post_id — post_id - unique _id field in each document
 - @param req.body.comment — user comment in plaintext
 
 ## DELETE /posts/:post_id/comments/:uid
 Delete a comment
-- @param req.params.uid — user id, currently email
+- @param req.params.uid — user id, unique uid field in db
 - @param req.params.post_id — post_id - unique _id field in each document
 - @param req.body.comment — user comment in plaintext
