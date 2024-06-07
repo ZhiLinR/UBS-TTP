@@ -10,7 +10,7 @@ const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
  */
 exports.findByUID = async (uid) => {
     try {
-        let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } });
+        let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } }, { projection: { _id: 0 } });
         return result;
     } catch (error) {
         throw new Error(UTIL.database_error_msg);
