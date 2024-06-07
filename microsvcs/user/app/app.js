@@ -1,6 +1,7 @@
 
 //retrieve environment variables
 require('dotenv').config({ path: ['.env.local', '.env'] });
+const errorMW = require('./middleware/error.js')
 
 //Express Server
 const express = require('express');
@@ -24,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
 require('./routes.js')(app);
+
+app.use(errorMW.errorHandler);
 
 app.listen(PORT, () => {
     console.log("TTP User/Profile NodeJS-Express-MongoDB Microservice Started");

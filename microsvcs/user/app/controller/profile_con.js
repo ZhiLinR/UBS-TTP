@@ -13,11 +13,7 @@ exports.getProfileByUID = async (req, res) => {
         const result = await QUERIES.findByUID(uid)
         res.status(200).send(result);
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
-        } else {
-            res.status(404).send({ message: error.message });
-        }
+        next(error)
     };
 };
 
@@ -30,10 +26,6 @@ exports.updateProfileInfo = async (req, res) => {
             res.status(200).send({ message: "success" });
         }
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send({ message: error.message });
-        } else {
-            res.status(404).send({ message: error.message });
-        }
+        next(error)
     };
 };

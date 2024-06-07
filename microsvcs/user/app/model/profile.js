@@ -13,7 +13,7 @@ exports.findByUID = async (uid) => {
         let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } });
         return result;
     } catch (error) {
-        throw new Error("Server Error Occurred");
+        throw new Error("server");
     }
 }
 
@@ -34,6 +34,6 @@ exports.updateOneByUID = async (uid, json_obj) => {
         );
         return result;
     } catch (error) {
-        throw new Error("Server Error Occurred");
+        throw new Error("db");
     }
 }
