@@ -15,7 +15,7 @@ exports.addComment = async (req, res) => {
         const comment = req.body.comment;
         // Check if the post exists
         const check = await FORUM_QUERIES.getPostbyID(post_id)
-        if (!check.post_id) {
+        if (!check) {
             throw new Error("Reference Not Found")
         }
         const result = await QUERIES.addComment(post_id, uid, comment)
@@ -23,7 +23,6 @@ exports.addComment = async (req, res) => {
             res.status(200).send(HANDLER.createSuccessResponse("Comment Added", { "comment_id": result }));
         }
     } catch (error) {
-        console.log(error)
         if (error.message == "Server Error Occurred") {
             res.status(500).send(HANDLER.createErrorResponse(error.message));
         } else {

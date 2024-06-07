@@ -49,7 +49,7 @@ exports.newPost = async (body) => {
         let new_post_id = new ObjectId().toString()
         const doc = {
             "post_id": new_post_id,
-            "created_by": body.admin_uid,
+            "created_by_uid": body.admin_uid,
             "timestamp": new Date().toISOString(),
             "post_content": body.main_content,
         };
@@ -68,7 +68,7 @@ exports.newPost = async (body) => {
  */
 exports.updatePost = async (post_id, body) => {
     try {
-        const filter = { $and: [{ "post_id": post_id }, { "created_by": body.admin_uid }] };
+        const filter = { $and: [{ "post_id": post_id }, { "created_by_uid": body.admin_uid }] };
 
         //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
