@@ -1,11 +1,10 @@
 const database = require('./util/init_db')
 const { ObjectId } = require('mongodb');
-
-const collection = database.collection(process.env.FORUM_COLLECTION);
+const VAR = require('../util/variables.js');
+const collection = database.collection(VAR.FORUM_COLLECTION);
 
 /**
- * Query the defined collection for the Admin/Forum microservice
- * and returns all documents as an Array. 
+ * finds all posts not flagged for deletion
  * 
  * No parameters expected.
  * @return An Array of all documents contained in the collection.
@@ -24,8 +23,7 @@ exports.getAllPosts = async () => {
 }
 
 /**
- * Query the defined collection for the Admin/Forum microservice
- * for 1 specified document.
+ * find post by the unique pid
  * 
  * 1 function parameter expected.
  * @param {String} post_id - unique post_id field in each document
@@ -49,14 +47,16 @@ exports.getPostbyID = async (post_id) => {
  */
 exports.newPost = async (body) => {
     try {
+        let new_post_id = new ObjectId().toString()
         const doc = {
+            "post_id": new_post_id,
             "created_by": body.admin_uid,
             "timestamp": new Date().toISOString(),
             "post_content": body.main_content,
         };
         let result = await collection.insertOne(doc);
 
-        return result.insertedId;
+        return result.new_post_id;
     } catch (error) {
         throw new Error("Server Error Occurred")
     }
@@ -69,7 +69,7 @@ exports.newPost = async (body) => {
  */
 exports.updatePost = async (post_id, body) => {
     try {
-        const filter = { $and: [{ "_id": new ObjectId(post_id), "admin": body.admin_uid }] };
+        const filter = { $and: [{ "post_id": post_id, "created_by": body.admin_uid }] };
 
         //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };

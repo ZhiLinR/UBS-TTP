@@ -1,7 +1,7 @@
-const database = require('./util/init_db')
+const database = require('./util/init_db');
 const { ObjectId } = require('mongodb');
-
-const collection = database.collection(process.env.FORUM_COLLECTION);
+const VAR = require('../util/variables.js');
+const collection = database.collection(VAR.FORUM_COMMENTS_COLLECTION);
 
 /**
  * Adds comment to the post using a push upsert to fieldvalue: comments
@@ -51,7 +51,7 @@ exports.deleteComment = async (post_id, uid, comment) => {
         const options = { upsert: false };
         const updateDoc = {
             $pull: {
-                comments:{ uid: uid, comment: comment  }
+                comments: { uid: uid, comment: comment }
             },
         };
         const result = await collection.updateOne(filter, updateDoc, options);
