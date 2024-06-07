@@ -1,5 +1,5 @@
 const database = require('./util/init_db');
-
+const UTIL = require('../util/variables.js')
 const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
 
 /**
@@ -13,7 +13,7 @@ exports.findByUID = async (uid) => {
         let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } });
         return result;
     } catch (error) {
-        throw new Error("server");
+        throw new Error(UTIL.database_error_msg);
     }
 }
 
@@ -34,6 +34,6 @@ exports.updateOneByUID = async (uid, json_obj) => {
         );
         return result;
     } catch (error) {
-        throw new Error("db");
+        throw new Error(UTIL.database_error_msg);
     }
 }
