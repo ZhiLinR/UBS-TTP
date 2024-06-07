@@ -27,14 +27,14 @@ exports.getAllPosts = async (req, res) => {
  * requested post
  * 
  * 1 parameter expected.
- * @param {String} pid - unique pid field in each document
+ * @param {String} post_id - unique post_id field in each document
  * @success HTTP status 200 & array of documents
  * @error HTTP error status with error message
  */
 exports.getPostbyID = async (req, res) => {
     try {
-        const pid = req.params.pid;
-        const result = await QUERIES.getPostbyID(pid)
+        const post_id = req.params.post_id;
+        const result = await QUERIES.getPostbyID(post_id)
         res.status(200).send(HANDLER.createSuccessResponse("successful", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {
@@ -68,14 +68,14 @@ exports.newPost = async (req, res) => {
 /**
  * update a post
  * 
- * @param {String} req.params.pid - unique pid; mongo document object ID
+ * @param {String} req.params.post_id - unique post_id; mongo document object ID
  * @param {JSON} req.body - json body/ form data
  */
 exports.updatePost = async (req, res) => {
     try {
-        const pid = req.params.pid;
+        const post_id = req.params.post_id;
         const body = req.body;
-        const result = await QUERIES.updatePost(pid, body)
+        const result = await QUERIES.updatePost(post_id, body)
         if (result.modifiedCount == 1) {
             res.status(200).send(HANDLER.createSuccessResponse("Post Updated", result)); 
         } else {
@@ -94,14 +94,17 @@ exports.updatePost = async (req, res) => {
 /**
  * delete a post using unique post id (document's id)
  * 
- * @param {String} pid - unique pid field in each document
+ * @param {String} post_id - unique post_id field in each document
  * @param {String} uid - gets the admin id for who flagged deletion
  */
 exports.deletePost = async (req, res) => {
     try {
-        const pid = req.body.pid;
+        const post_id = req.params.post_id;
         const uid = req.body.admin_uid;
-        const result = await QUERIES.deletePost(uid, pid)
+        const result = await QUERIES.deletePost(uid, post_id)
+        if (!result.matchedCount) {
+            throw new Error("No Reference Found")
+        }
         res.status(200).send(HANDLER.createSuccessResponse("Post Flagged for Deletion", result));
     } catch (error) {
         if (error.message == "Server Error Occurred") {

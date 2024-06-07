@@ -31,7 +31,9 @@ exports.getAllPosts = async () => {
  */
 exports.getPostbyID = async (post_id) => {
     try {
-        let result = await collection.findOne({ post_id: { $eq: post_id } });
+
+        let result = await collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
+        console.log(result)
         return result;
     } catch (error) {
         throw new Error("Server Error Occurred")
@@ -69,7 +71,7 @@ exports.newPost = async (body) => {
  */
 exports.updatePost = async (post_id, body) => {
     try {
-        const filter = { $and: [{ "post_id": post_id, "created_by": body.admin_uid }] };
+        const filter = { $and: [{ "post_id": post_id }, { "created_by": body.admin_uid }] };
 
         //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
@@ -96,7 +98,7 @@ exports.updatePost = async (post_id, body) => {
  */
 exports.deletePost = async (uid, post_id) => {
     try {
-        const filter = { "_id": new ObjectId(post_id) };
+        const filter = { "post_id": post_id };
 
         //{ upsert: false } so that a new document is never made.
         const options = { upsert: false };
