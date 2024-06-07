@@ -4,23 +4,9 @@ const UTIL = require('../util/variables.js')
 
 const USER_COLLECTION = database.collection(process.env.USER_COLLECTION);
 const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
-/**
- * Retrieve user data for a specific user.
- * 
- * @param {String} uid - unique uid field
- * @return profiling data for the specified user
- */
-exports.findByUID = async (uid) => {
-    try {
-        let result = await USER_COLLECTION.findOne({ uid: { $eq: uid } });
-        return result;
-    } catch (error) {
-        throw new Error("db");
-    }
-}
 
 /**
- * Insertone user into MongoDB
+ * Insert one user into MongoDB
  * 
  * @param {String} email - user's email
  * @param {String} name - name
