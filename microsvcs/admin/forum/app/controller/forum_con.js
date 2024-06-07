@@ -35,7 +35,11 @@ exports.getPostbyID = async (req, res) => {
     try {
         const post_id = req.params.post_id;
         const result = await QUERIES.getPostbyID(post_id)
-        res.status(200).send(HANDLER.createSuccessResponse("successful", result));
+        if (result) {
+            res.status(200).send(HANDLER.createSuccessResponse("successful", result));
+        }else{
+            throw new Error("No Reference Found")
+        }
     } catch (error) {
         if (error.message == "Server Error Occurred") {
             res.status(500).send(HANDLER.createErrorResponse(error.message));

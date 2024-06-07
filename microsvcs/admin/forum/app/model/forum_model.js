@@ -11,10 +11,9 @@ const collection = database.collection(VAR.FORUM_COLLECTION);
  */
 exports.getAllPosts = async () => {
     try {
-        const query = { status: { flag: { $not: { $eq: "D" } } } };
+        const query = { "status.flag": { $ne: "D" } };
 
-        let result = await collection.find(query).toArray();
-
+        let result = await collection.find(query, { projection: { '_id': 0 } }).toArray();
         return result;
     } catch (error) {
         console.log(error)
@@ -23,7 +22,7 @@ exports.getAllPosts = async () => {
 }
 
 /**
- * find post by the unique pid
+ * find post by the unique post_id
  * 
  * 1 function parameter expected.
  * @param {String} post_id - unique post_id field in each document
@@ -31,9 +30,7 @@ exports.getAllPosts = async () => {
  */
 exports.getPostbyID = async (post_id) => {
     try {
-
         let result = await collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
-        console.log(result)
         return result;
     } catch (error) {
         throw new Error("Server Error Occurred")
