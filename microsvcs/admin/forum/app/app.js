@@ -26,5 +26,5 @@ app.use(cors())
 require('./routes.js')(app);
 
 app.listen(PORT, () => {
-    console.log("TTP Admin/Forum NodeJS-Express-MongoDB Microservice Started");
+    console.log("TTP Forum NodeJS-Express-MongoDB Microservice Started");
 })
