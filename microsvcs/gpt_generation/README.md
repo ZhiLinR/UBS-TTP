@@ -1,16 +1,14 @@
 # api quick reference sheet
 ## POST /api/scenario
-*Debating on a GET? maybe with query instead?* 
-
 creates a new scenario for the user. 
 
-@params req.body.uid - required, user id, currently email <br>
+@params req.body.uid - required, user id <br>
 @params req.body.topic - optional, a selected or predefined topic to be used <br>
 
 Sample request body:
 ```
 {
-    "uid":"sammyho@email.com", //required
+    "uid":"666350518e5c4522aed85892", //required
     "topic":"Diversity" //optional 
 }
 ```
@@ -32,20 +30,48 @@ Sample success response:
 }
 
 ```
+
+### Additional Info:
+This API's current behaviour has a behavioural lapse for the microservice. Only this endpoint can create a new Thread
+for the user to use, meaning that the other endpoints will fail if the POST /api/scenario is not called AND if the user does not have a record in the DB.
+
+Sample DB Record:
+```
+{
+  "_id": {
+    "$oid": "66673f1e177bd5f9a52f3ca7"
+  },
+  "uid": "666350518e5c4522aed85892",
+  "thread_info": {
+    "id": "thread_0BRNOfWhaDZrBAAI3xNv4OxB",
+    "object": "thread",
+    "created_at": 1718042398,
+    "metadata": {
+      "uid": "666350518e5c4522aed85892"
+    }
+  },
+  "createdAt": {
+    "$date": "2024-06-10T17:59:59.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-10T17:59:59.000Z"
+  },
+  "__v": 0
+}
+```
+
 ---
-## POST /api/scenario/end
-*naming improvements appreciated 😢* 
+## PUT /api/scenario/end
+Saves the user's interaction with the scenario (namely the given scenario and the selected option) into OpenAI [Threads](https://platform.openai.com/docs/api-reference/threads/getThread) and [Messages](https://platform.openai.com/docs/api-reference/messages) beta functions.
 
-Logs the user's interaction with the scenario (namely the given scenario and the selected option).
-
-@params req.body.uid - user's id, currently email <br>
+@params req.body.uid - user's id <br>
 @params req.body.content - contains scenario and options <br>
 
 
 Sample request body
 ```
 {
-    "uid":"sammyho@email.com",
+    "uid":"666350518e5c4522aed85892",
     "content": {
         "scenario": "As a Diversity and Inclusion Specialist, I was facilitating a training session on Diversity in the workplace. During the session, a participant made a dismissive remark about a colleague's cultural background, causing discomfort in the room. What should I do?",
         "options": 
@@ -54,32 +80,50 @@ Sample request body
     }
 }
 ```
-*The data inside content is copy and pasted from the scenario generation, directly copied into the body.
 
 Sample success response:
 ```
 {
-    "message": "Entry Created",
-    "success": true
+	"message": "Response Recorded in Threads",
+	"success": true,
+	"content": {
+		"msg": "No Content to Parse"
+	}
 }
 ```
+
+Thread Data Sample:
+![Data input assigned to both user and assistant](./refs/sample%20OA.png "OpenAI Threads Interface")
+
 
 ---
 ## GET /api/scenario/summary/:uid
 Generates a personality overview for the user judging from their interactions with scenarios and their profile. 
 
-@params req.params.uid - user's id, currently admin
+@params req.params.uid - user's id
 
 Sample success response:
 ```
 {
-    "message": "Summarised",
-    "success": true,
-    "content": {
-        "profile_summary": "You are a sensitive and empathetic individual who values diversity and inclusion. You take a stand against inappropriate behavior and strive to create a respectful and accepting environment. Your ability to address uncomfortable situations directly and educate others on the importance of cultural respect sets you apart as a role model for promoting harmony in the workplace."
-    }
+	"message": "Summarised",
+	"success": true,
+	"content": {
+		"profile_summary": "You are a strong advocate for diversity and inclusivity, valuing respect for all cultures. Your approach is assertive yet diplomatic, addressing inappropriate behavior directly while emphasizing the importance of respecting differences in the workplace. You prioritize creating a safe and welcoming environment for everyone, demonstrating leadership qualities in handling challenging situations with empathy and professionalism."
+	}
 }
 ```
+## DELETE /scenario/:thread_id
+Deletes the thread with the reference thread_id (couldn't find any deletion thingy on the web interface). Mainly used for managing threads created during testing.
 
+@params req.params.thread_id - the id of the thread to be deleted
+
+Sample success response (default from OpenAI)
+```
+{
+    "id": "thread_kZSzGhMq4WnD7bYtMSozXoFa",
+    "object": "thread.deleted",
+    "deleted": true
+}
+```
 ---
 
