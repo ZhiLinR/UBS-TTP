@@ -1,7 +1,9 @@
 import * as InitUser from './init/user.js'
 import * as InitTopic from './init/topic.js';
-import { connectOpenAI } from './init/openai_conf.js';
-import { _Prompt } from './PromptClass.js';
+import { _Prompt } from './helpers/PromptClass.js';
+
+import { OAConnect } from './init/openai_conf.js';
+import { OAThreadsAPI } from './helpers/OAThreadsAPIClass.js';
 
 /**
  * Extends {@link _Prompt} which allows for the text prompts to be accessed directly
@@ -26,11 +28,11 @@ export class Scenario extends _Prompt {
    * 
    * ```{"scenario":"","options":{ "passive":"","reactive":"","proactive":"","active":"" }}```
    */
-  public async generateScenario() {
+  public async generateScenario(){
     let profile_info = await InitUser._initialiseProfile(this.uid);
     let generate_audience = await this._generateProfile() || "generic"
     let content = super.createScenarioPrompt(profile_info, generate_audience, this.topic);
-    let result = await connectOpenAI(content);
+    let result = await OAConnect(content);
     return result;
   }
 
@@ -44,7 +46,7 @@ export class Scenario extends _Prompt {
   public async generateSummary(scenario_data: string) {
     let profile_info = await InitUser._initialiseProfile(this.uid);
     let content = super.createSummaryPrompt(profile_info, scenario_data);
-    let result = await connectOpenAI(content);
+    let result = await OAConnect(content);
     return result;
   }
 
@@ -56,7 +58,7 @@ export class Scenario extends _Prompt {
    */
   private async _generateProfile() {
     let content = super.createProfilePrompt(this.topic);
-    let result = await connectOpenAI(content);
+    let result = await OAConnect(content);
     return result
   }
 }

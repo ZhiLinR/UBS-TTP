@@ -1,3 +1,4 @@
+import { Thread } from 'openai/resources/beta/index.mjs';
 import { usersModel } from './UserSchema.js';
 
 /**
@@ -7,26 +8,26 @@ import { usersModel } from './UserSchema.js';
  * @param option the option that the user selected
  * @returns 
  */
-export async function createEntry(uid: string, scenario: string, option: string) {
+export async function createEntry(uid: string, thread_info: Thread) {
   try {
     const result = await usersModel.create({
       uid: uid,
-      scenario: scenario,
-      option: option
+      thread_info: JSON.parse(JSON.stringify(thread_info)),
     });
-    return result;
+    return result.thread_info;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error("Schema Creation Failed")
   }
 }
 
 /**
- * This function retrieves all known records of the user's scenarios experiences and their choices.
- * @param uid user's id, currently email.
- * @returns a compilation of the scenario's and options the user has selected.
+ * 
+ * @param uid user's id
+ * @returns 
  */
-export async function getSummarised(uid: string){
-  let result = await usersModel.find({ uid: uid }).exec();
-  return result
+export async function getUserThread(uid: string) {
+  let result = await usersModel.findOne({ uid: uid },).select('thread_info').exec();
+  return result?.thread_info
 }
+

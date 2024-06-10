@@ -2,7 +2,7 @@ export function handleSuccessResponse(message:string, response?: string | undefi
     return {
         "message": message,
         "success": true,
-        "content": JSON.parse(response || "{'msg':'No Content to Parse'}"),
+        "content": JSON.parse(response || `{"msg":"No Content to Parse"}`),
     };
 }
 

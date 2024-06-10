@@ -20,7 +20,6 @@ export async function _initialiseProfile(uid: string) {
   let result = await fetch(request)
     .then(res => res.json())
     .then(res => {
-      //console.log(res)
       return res
     })
   return result
