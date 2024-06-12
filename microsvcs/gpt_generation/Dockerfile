@@ -1,7 +1,8 @@
-FROM node:18-alpine as build
+FROM node:18-alpine
+COPY app/ /scenario-app/
 
 WORKDIR /scenario-app/
-COPY /app /scenario-app/
 RUN npm install
-CMD ["node", "index.js"]
+
+CMD [ "npm", "run", "start" ]
 EXPOSE 8200
