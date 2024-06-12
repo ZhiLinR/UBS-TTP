@@ -1,0 +1,1 @@
+declare module 'openai/resources/beta/index.mjs';
