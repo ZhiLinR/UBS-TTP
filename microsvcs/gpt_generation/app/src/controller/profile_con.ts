@@ -19,12 +19,12 @@ profileRoute.get('/scenario/summary/:uid', async (req: Request, res: Response, n
         if (user_personality_summary) {
             next({ success: true, status: 200, message: "Summarised", content: user_personality_summary });
         }else{
-            next({ success: true, status: 404, message: "Check User Input" });
+            next({ success: false, status: 404, message: "Check User Input" });
         }
         
     } catch (error) {
         
-        next({ success: true, status: 500, message: "Server Error" });
+        next({ success: false, status: 500, message: "Server Error" });
     }
 
 });
