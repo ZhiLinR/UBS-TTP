@@ -1,5 +1,3 @@
-
-//Default MongoDB Initialisation Code
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const credentials = process.env.MONGO_CERT_PATH
