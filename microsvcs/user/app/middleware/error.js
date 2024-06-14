@@ -10,7 +10,7 @@ exports.errorHandler = (err, req, res, next) => {
         res.status(err.status).send({ error: 'Database Error Occured' });
     }
     else {
-        res.status(404);
-        res.json({ error: "check user input" });
+        res.status(err.status);
+        res.json({ error: err.message });
     }
 }
