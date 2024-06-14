@@ -9,9 +9,9 @@ interface ResponseBody {
 
 export function handleResponse(res_body: ResponseBody, req: Request, res: Response, next: NextFunction): void {
     if (res_body.success) {
-        res.status(200).json(res_body);
+        res.status(res_body.status).json(res_body);
     } else {
-        res.status(500).json(res_body);
+        res.status(res_body.status).json(res_body);
     }
 
 }
