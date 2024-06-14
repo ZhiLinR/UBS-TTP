@@ -16,17 +16,18 @@ Sample request body:
 Sample success response: 
 ```
 {
-    "message": "Scenario Generated",
-    "success": true,
-    "content": {
-        "scenario": "I was facilitating a diversity and inclusion training session on the topic of gender inclusivity. During the session, there was a tense moment when a participant made a derogatory remark about non-binary individuals, which made some other participants uncomfortable.",
-        "options": {
-            "passive": "You should have ignored the remark and continued with the training, hoping that the discomfort would fade away.",
-            "reactive": "You should have addressed the remark immediately, pointing out its inappropriateness and its impact on creating a safe and inclusive environment for all participants.",
-            "proactive": "You should have set clear ground rules at the beginning of the training, emphasizing the importance of respect and inclusivity, to prevent such remarks from being made in the first place.",
-            "active": "You should have used the moment as a teaching opportunity, engaging the group in a discussion about gender diversity, asking the participant to elaborate on their remark and guiding them towards understanding and empathy."
-        }
-    }
+	"success": true,
+	"status": 200,
+	"message": "Scenario Generated",
+	"content": {
+		"scenario": "As a Diversity and Inclusion Specialist, I was leading a training session on promoting diversity in the workplace. During the session, a participant made a derogatory comment about a certain race, which made some attendees visibly uncomfortable.",
+		"options": {
+			"passive": "You should ignore the comment and continue with the training session, hoping that the discomfort will dissipate on its own.",
+			"reactive": "You should address the comment after the session, privately speaking with the participant to explain why their remark was inappropriate and the impact it had on others.",
+			"proactive": "You should have established ground rules at the beginning of the training session, emphasizing the importance of respectful language and behavior, which could have prevented such comments.",
+			"active": "You should immediately interrupt the participant, call out the inappropriate comment, and facilitate a discussion about why such remarks are harmful and how to create a more inclusive environment for everyone. You should also offer support to those who were affected by the comment."
+		}
+	}
 }
 
 ```
@@ -61,7 +62,7 @@ Sample DB Record:
 ```
 
 ---
-## PUT /api/scenario/end
+## PUT /api/scenario/
 Saves the user's interaction with the scenario (namely the given scenario and the selected option) into OpenAI [Threads](https://platform.openai.com/docs/api-reference/threads/getThread) and [Messages](https://platform.openai.com/docs/api-reference/messages) beta functions.
 
 @params req.body.uid - user's id <br>
@@ -84,11 +85,9 @@ Sample request body
 Sample success response:
 ```
 {
-	"message": "Response Recorded in Threads",
 	"success": true,
-	"content": {
-		"msg": "No Content to Parse"
-	}
+	"status": 200,
+	"message": "Thread Updated"
 }
 ```
 
@@ -105,10 +104,11 @@ Generates a personality overview for the user judging from their interactions wi
 Sample success response:
 ```
 {
-	"message": "Summarised",
 	"success": true,
+	"status": 200,
+	"message": "Summarised",
 	"content": {
-		"profile_summary": "You are a strong advocate for diversity and inclusivity, valuing respect for all cultures. Your approach is assertive yet diplomatic, addressing inappropriate behavior directly while emphasizing the importance of respecting differences in the workplace. You prioritize creating a safe and welcoming environment for everyone, demonstrating leadership qualities in handling challenging situations with empathy and professionalism."
+		"profile_summary": "You are a respectful, inclusive individual who values cultural diversity. You handle situations with tact and address inappropriate comments head-on, emphasizing the importance of respecting all cultures in the workplace. Your proactive approach in promoting inclusivity and respect sets a positive example for others to follow."
 	}
 }
 ```
