@@ -27,10 +27,14 @@ scenarioRoute.post('/scenario', async (req: Request, res: Response, next: NextFu
         }
 
         let generated_scenario = await userScenario.generateScenario();
-        next({ success: true, status: 200, message: "Scenario Generated", content: generated_scenario });
 
+        if (generated_scenario) {
+            next({ success: true, status: 200, message: "Scenario Generated", content: generated_scenario }); 
+        }else{
+            next({ success: false, status: 404, message: "Generation Failed" });
+        }
     } catch (error) {
-        next({ success: false, status: 500, message: "Generation Failed" });
+        next({ success: false, status: 500, message: "Server Error" });
     }
 
 });
@@ -44,7 +48,7 @@ scenarioRoute.put('/scenario', async (req: Request, res: Response, next: NextFun
 
     try {
         let user_thread = await UserModel.getUserThread(uid);
-        
+
         await userThread.newAssistantMessage(user_thread?.id || "NIL", scenario);
         await userThread.newUserMessage(user_thread?.id || "No Option Selected", option_chosen);
 

@@ -15,9 +15,16 @@ profileRoute.get('/scenario/summary/:uid', async (req: Request, res: Response, n
         let user_thread = await UserModel.getUserThread(uid);
         let user_thread_messages = await userThread.getMessages(user_thread?.id || "No ID");
         let user_personality_summary = await scenario.generateSummary(JSON.stringify(user_thread_messages))
-        next({ success: true, status: 200, message: "Summarised", content: user_personality_summary });
+
+        if (user_personality_summary) {
+            next({ success: true, status: 200, message: "Summarised", content: user_personality_summary });
+        }else{
+            next({ success: true, status: 404, message: "Check User Input" });
+        }
+        
     } catch (error) {
-        next({ success: true, status: 500, message: "Database Error" });
+        
+        next({ success: true, status: 500, message: "Server Error" });
     }
 
 });
