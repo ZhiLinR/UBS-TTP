@@ -24,7 +24,7 @@ export class Scenario extends _Prompt {
 
   /**
    * This function creates a scenario for the user to interact with.
-   * @returns A stringified JSON body in the following format: 
+   * @returns A JSON body in the following format: 
    * 
    * ```{"scenario":"","options":{ "passive":"","reactive":"","proactive":"","active":"" }}```
    */
@@ -33,7 +33,7 @@ export class Scenario extends _Prompt {
     let generate_audience = await this._generateProfile() || "generic"
     let content = super.createScenarioPrompt(profile_info, generate_audience, this.topic);
     let result = await OAConnect(content);
-    return result;
+    return JSON.parse(result || "No Scenario");
   }
 
 /**
@@ -47,7 +47,7 @@ export class Scenario extends _Prompt {
     let profile_info = await InitUser._initialiseProfile(this.uid);
     let content = super.createSummaryPrompt(profile_info, scenario_data);
     let result = await OAConnect(content);
-    return result;
+    return JSON.parse(result || "Failed");
   }
 
   /**

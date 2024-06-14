@@ -1,4 +1,5 @@
 import { PROFILE_API_URL } from '../../var/variables.js';
+import { setHeaders } from '../helpers/headers.js';
 
 /**
  * This function communicates with the user microservice to get the requested profiling information.
@@ -7,18 +8,14 @@ import { PROFILE_API_URL } from '../../var/variables.js';
  * @returns an async function which calls the Profile Microservice and returns a JSON body.
  */
 export async function _initialiseProfile(uid: string) {
-  const headers: Headers = new Headers()
-
-  headers.set('Content-Type', 'application/json')
-  headers.set('Accept', 'application/json')
+  const headers: Headers = setHeaders();
 
   const request: RequestInfo = new Request(PROFILE_API_URL.concat('/api/profile/', uid), {
     method: 'GET',
     headers: headers
   })
 
-  let result = await fetch(request)
-    .then(res => {
-      return await res.json()})
-  return result
+  let result = await fetch(request);
+  let return_result = await result.json()
+  return return_result
 }

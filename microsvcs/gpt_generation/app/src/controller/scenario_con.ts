@@ -1,8 +1,7 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import { Scenario } from '../ext_api/ScenarioClass.js'
 import { OAThreadsAPI } from "../ext_api/helpers/OAThreadsAPIClass.js";
 import * as UserModel from '../model/user_model.js'
-import * as Handler from '../util/handler.js';
 
 export const scenarioRoute = express.Router();
 
@@ -12,76 +11,58 @@ export const scenarioRoute = express.Router();
  * @param {String} req.body.uid - the user's ID, currently email
  * @param {String | undefined} req.body.topic - optional topic field if the user specifically selects a topic
  */
-scenarioRoute.post('/scenario', (req: Request, res: Response): void => {
+scenarioRoute.post('/scenario', async (req: Request, res: Response, next: NextFunction) => {
+    const uid: string = req.body.uid;
+    const topic: string | undefined = req.body.topic;
+
+    const userScenario: Scenario = new Scenario(uid, topic)
+    const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
+
     try {
-        const uid: string = req.body.uid;
-        const topic: string | undefined = req.body.topic;
+        let db_record = await UserModel.getUserThread(uid);
+        if (!db_record) {
+            let new_thread_data = await userThread.newThread()
+            let new_db_entry = await UserModel.createEntry(uid, new_thread_data)
+            db_record = new_db_entry;
+        }
 
-        const userScenario: Scenario = new Scenario(uid, topic)
-        const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
+        let generated_scenario = await userScenario.generateScenario();
+        next({ success: true, status: 200, message: "Scenario Generated", content: generated_scenario });
 
-        // Writing out steps cos im confused
-        UserModel.getUserThread(uid).then((db_record) => {
-            // 1.1 If user does not have existing record in database for uid
-            if (!db_record) {
-                // 1.11 generate new OA thread
-                let new_thread_data = userThread.newThread().then((data) => {
-                    // 1.12 put the OA thread into the DB
-                    UserModel.createEntry(uid, data)
-                    // return the object to be used
-                    return data;
-                })
-                return new_thread_data;
-            } else {
-                // 1.2 else return the stored thread object to be used
-                return db_record;
-            }
-        }).then((elem) => {
-            userScenario.generateScenario().then((response) => {
-                res.status(200).json(Handler.handleSuccessResponse("Scenario Generated", response || "No Scenario"));
-            });
-        })
     } catch (error) {
-        res.status(500).json(Handler.handleErrorResponse("Generation Failed"));
+        next({ success: false, status: 500, message: "Generation Failed" });
     }
 
 });
 
-scenarioRoute.put('/scenario/end', (req: Request, res: Response): void => {
+scenarioRoute.put('/scenario', async (req: Request, res: Response, next: NextFunction) => {
+    const uid: string = req.body.uid;
+    const scenario: string = req.body.content.scenario;
+    const option_chosen: string = req.body.content.options;
+
+    const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
+
     try {
-        const uid: string = req.body.uid;
-        const scenario: string = req.body.content.scenario;
-        const option_chosen: string = req.body.content.options;
+        let user_thread = await UserModel.getUserThread(uid);
+        
+        await userThread.newAssistantMessage(user_thread?.id || "NIL", scenario);
+        await userThread.newUserMessage(user_thread?.id || "No Option Selected", option_chosen);
 
-        const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
-
-        // Writing out steps cos im confused
-        UserModel.getUserThread(uid).then((db_record) => {
-            userThread.newAssistantMessage(db_record?.id || "NIL", scenario).then(()=>{
-                userThread.newUserMessage(db_record?.id || "No Option Selected", option_chosen).then(()=>{
-                    res.status(200).json(Handler.handleSuccessResponse("Response Recorded in Threads"));
-                })
-            })
-        }).catch((err) => {
-            throw new Error(err.message)
-        })
-
+        next({ success: true, status: 200, message: "Thread Updated" });
     } catch (error) {
-        res.status(500).json(Handler.handleErrorResponse("Thread Failed"));
+        next({ success: false, status: 500, message: "Thread Update Failed" });
     }
 
 });
 
 // Just for me to delete threads from testing
-scenarioRoute.delete('/scenario/:thread_id', (req: Request, res: Response): void => {
+scenarioRoute.delete('/scenario/:thread_id', async (req: Request, res: Response, next: NextFunction) => {
+    const thread_id: string = req.params.thread_id;
+    const userThread: OAThreadsAPI = new OAThreadsAPI(thread_id);
     try {
-        const thread_id: string = req.params.thread_id;
-        const userThread: OAThreadsAPI = new OAThreadsAPI(thread_id);
-        userThread.deleteThread(thread_id).then((del_status) => {
-            res.status(200).json(del_status);
-        })
+        let del_status = userThread.deleteThread(thread_id)
+        next({ success: true, status: 200, message: "Thread Updated", content: del_status });
     } catch (error) {
-        res.status(500).json(Handler.handleErrorResponse("Deletion Failed"));
+        next({ success: false, status: 500, message: "Thread Update Failed" });
     }
-
 })

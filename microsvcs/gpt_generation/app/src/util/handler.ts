@@ -1,15 +1,18 @@
-export function handleSuccessResponse(message:string, response?: string | undefined | null) {
-    return {
-        "message": message,
-        "success": true,
-        "content": JSON.parse(response || `{"msg":"No Content to Parse"}`),
-    };
+import { Express, Request, Response, NextFunction } from 'express';
+
+interface ResponseBody {
+    success: boolean,
+    status: number,
+    message: string,
+    content?: string | Object 
 }
 
-export function handleErrorResponse(message:string) {
-    return {
-        "message": message,
-        "success": false,
-    };
+export function handleResponse(res_body: ResponseBody, req: Request, res: Response, next: NextFunction): void {
+    if (res_body.success) {
+        res.status(200).json(res_body);
+    } else {
+        res.status(500).json(res_body);
+    }
+
 }
 

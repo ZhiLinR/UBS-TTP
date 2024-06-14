@@ -36,9 +36,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
-export type app = Express;
-
 app.use('/api', routes);
+
+
+import { handleResponse } from './util/handler.js'
+app.use(handleResponse)
 
 app.listen(PORT, () => {
   console.log("TTP GPT Generation Microservice Started");
