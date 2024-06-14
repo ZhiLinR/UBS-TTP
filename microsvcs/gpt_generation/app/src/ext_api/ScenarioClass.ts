@@ -1,5 +1,5 @@
 import * as InitUser from './init/user.js'
-import * as InitTopic from './init/topic.js';
+import * as InitTopic from '../var/topic.js';
 import { _Prompt } from './helpers/PromptClass.js';
 
 import { OAConnect } from './init/openai_conf.js';

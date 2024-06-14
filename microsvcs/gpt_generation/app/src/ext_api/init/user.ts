@@ -18,9 +18,7 @@ export async function _initialiseProfile(uid: string) {
   })
 
   let result = await fetch(request)
-    .then(res => res.json())
     .then(res => {
-      return res
-    })
+      return await res.json()})
   return result
 }

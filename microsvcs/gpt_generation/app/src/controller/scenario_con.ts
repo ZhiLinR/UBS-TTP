@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import { Scenario } from '../ext_api/ScenarioClass.js'
 import { OAThreadsAPI } from "../ext_api/helpers/OAThreadsAPIClass.js";
-import * as UModel from '../model/user_model.js'
+import * as UserModel from '../model/user_model.js'
 import * as Handler from '../util/handler.js';
 
 export const scenarioRoute = express.Router();
@@ -21,13 +21,13 @@ scenarioRoute.post('/scenario', (req: Request, res: Response): void => {
         const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
 
         // Writing out steps cos im confused
-        UModel.getUserThread(uid).then((db_record) => {
+        UserModel.getUserThread(uid).then((db_record) => {
             // 1.1 If user does not have existing record in database for uid
             if (!db_record) {
                 // 1.11 generate new OA thread
                 let new_thread_data = userThread.newThread().then((data) => {
                     // 1.12 put the OA thread into the DB
-                    UModel.createEntry(uid, data)
+                    UserModel.createEntry(uid, data)
                     // return the object to be used
                     return data;
                 })
@@ -56,7 +56,7 @@ scenarioRoute.put('/scenario/end', (req: Request, res: Response): void => {
         const userThread: OAThreadsAPI = new OAThreadsAPI(uid);
 
         // Writing out steps cos im confused
-        UModel.getUserThread(uid).then((db_record) => {
+        UserModel.getUserThread(uid).then((db_record) => {
             userThread.newAssistantMessage(db_record?.id || "NIL", scenario).then(()=>{
                 userThread.newUserMessage(db_record?.id || "No Option Selected", option_chosen).then(()=>{
                     res.status(200).json(Handler.handleSuccessResponse("Response Recorded in Threads"));

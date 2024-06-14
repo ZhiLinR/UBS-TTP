@@ -7,7 +7,7 @@ import * as Handler from '../util/handler.js';
 export const profileRoute = express.Router();
 
 // get thread and then process
-profileRoute.get('/scenario/summary/:uid', (req: Request, res: Response): void => {
+profileRoute.get('/scenario/summary/:uid', async (req: Request, res: Response) => {
     try {
         const uid: string = req.params.uid;
         const scenario = new Scenario(uid);
