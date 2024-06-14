@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/navigation_bar.dart';
-import '../fetch/profile.dart';
+import '../fetch/forum.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -21,7 +21,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<Album> futureAlbum;
+  late Future<List> futureAlbum;
 
   @override
   void initState() {
@@ -61,19 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            FutureBuilder<Album>(
-              future: futureAlbum,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text(snapshot.data!.title);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
-              },
             ),
           ],
         ),

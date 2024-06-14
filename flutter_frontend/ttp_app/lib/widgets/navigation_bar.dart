@@ -22,18 +22,28 @@ class _CustomNavigationBar extends State<CustomNavigationBar> {
       selectedIndex: currentPageIndex,
       destinations: const <Widget>[
         NavigationDestination(
-          selectedIcon: Icon(Icons.assignment),
-          icon: Icon(Icons.assignment_outlined),
-          label: 'Daily Tasks',
+          selectedIcon: Icon(Icons.forum),
+          icon: Icon(Icons.forum_outlined),
+          label: 'Forum',
         ),
         NavigationDestination(
-          selectedIcon: Icon(Icons.home),
-          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.gamepad),
+          icon: Icon(Icons.gamepad_rounded),
+          label: 'Builder',
+        ),
+        NavigationDestination(
+          selectedIcon: Icon(Icons.home_filled),
+          icon: Icon(Icons.home_rounded),
           label: 'Home',
         ),
         NavigationDestination(
-          selectedIcon: Icon(Icons.account_box),
-          icon: Icon(Icons.account_box_outlined),
+          selectedIcon: Icon(Icons.sms),
+          icon: Icon(Icons.sms_rounded),
+          label: 'Chat',
+        ),
+        NavigationDestination(
+          selectedIcon: Icon(Icons.settings),
+          icon: Icon(Icons.settings_rounded),
           label: 'Profile',
         ),
       ],

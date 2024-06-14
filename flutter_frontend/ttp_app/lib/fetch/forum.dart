@@ -2,45 +2,55 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../const/var.dart';
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
+class Post {
+  final String createdByUID;
+  final String postID;
+  final String timestamp;
 
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
+  const Post(
+      {required this.createdByUID,
+      required this.postID,
+      required this.timestamp});
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
+  factory Post.fromJson(Map<String, dynamic> json) {
+/*     return switch (json) {
       {
-        'userId': int userId,
-        'id': int id,
-        'title': String title,
+        'content.post_id': String postID,
+        'content.created_by_uid': String createdByUID,
+        'content.timestamp': String timestamp,
       } =>
-        Album(
-          userId: userId,
-          id: id,
-          title: title,
-        ),
+        Post(postID: postID, createdByUID: createdByUID, timestamp: timestamp),
       _ => throw const FormatException('Failed to load album.'),
-    };
+    }; */
+
+    // ignore: avoid_print
+    print(json['content']);
+    return Post(
+        postID: json['content']['post_id'] as String,
+        createdByUID: json['content']['post_id'] as String,
+        timestamp: json['content']['post_id'] as String);
   }
 }
 
-Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Album.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
+Future<List> fetchAlbum() async {
+  final response =
+      await http.get(Uri.parse("http://192.168.1.1:3200/api/posts"));
+  try {
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      var data = json.decode(response.body);
+      Future<List> posts = data.map((element) {
+        return Post.fromJson(element);
+      }).toList();
+      return posts;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  } catch (e) {
+    e.toString();
+    throw Exception(e.toString());
   }
 }
