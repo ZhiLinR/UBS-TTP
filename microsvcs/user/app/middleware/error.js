@@ -6,7 +6,7 @@ exports.errorHandler = (err, req, res, next) => {
         res.status(500).send({ error: 'Something failed!' });
     } else if (err.code == 11000) {
         res.status(500).send({ error: 'Email Already Exists' });
-    } else if (err.message == UTIL.database_error_msg) {
+    } else if (err.status == 500) {
         res.status(500).send({ error: 'Database Error Occured' });
     }
     else {

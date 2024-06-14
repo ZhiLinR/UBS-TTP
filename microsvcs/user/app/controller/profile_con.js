@@ -9,29 +9,33 @@ const UTIL = require('../util/init_res.js')
  * @param {String} uid - unique uid field
  */
 exports.getProfileByUID = async (req, res, next) => {
+    const uid = req.params.uid;
     try {
-        const uid = req.params.uid;
         const result = await QUERIES.findByUID(uid)
-        if (result === null) {
-            throw new Error("No Reference Found")
+        if (result !== null) {
+            next(UTIL.formatRes(true, 200, result))
+        } else {
+            next(UTIL.formatRes(false, 404, "No Reference Found"))
         }
-        next(UTIL.formatRes(true, result))
     } catch (error) {
-        next(UTIL.formatRes(false, error.message))
-    };
+        next(UTIL.formatRes(false, 500, "Database Error Occured"))
+    }
+
 };
 
 exports.updateProfileInfo = async (req, res, next) => {
+    const uid = req.params.uid;
+    const json_body = req.body;
+
     try {
-        const uid = req.params.uid;
-        const json_body = req.body
         const result = await QUERIES.updateOneByUID(uid, json_body)
         if (result.modifiedCount) {
-            next(UTIL.formatRes(true, result))
+            next(UTIL.formatRes(true, 200, "Successfully Modified"))
         } else {
-            throw new Error("No Reference Found")
+            next(UTIL.formatRes(false, 404, "No Reference Found"))
         }
     } catch (error) {
-        next(UTIL.formatRes(false, error.message))
-    };
+        next(UTIL.formatRes(false, 500, "Database Error Occured"))
+    }
+
 };

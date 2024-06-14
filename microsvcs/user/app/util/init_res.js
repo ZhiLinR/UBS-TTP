@@ -6,10 +6,10 @@
  * @param {*} body the message to send 
  * @returns {JSON} { "success": bool, "message": to be defined }
  */
-exports.formatRes = (success, body) => {
+exports.formatRes = (success, status, body) => {
     if (success) {
-        return { "success": true, "message": body }
+        return { "success": true, "status": status, "message": body }
     } else {
-        return { "success": false, "message": body}
+        return { "success": false, "status": status, "message": body }
     }
 }
