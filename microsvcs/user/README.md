@@ -6,14 +6,15 @@ Gets a profile by a specific uid (currently email value) provided in params.
 Sample Success Response:
 ```
 {
-    "success": true,
-    "message": {
-        "uid": "666350518e5c4522aed85892",
-        "lastModified": "2024-06-07T18:26:12.711Z",
-        "gender": "female",
-        "organisation_type": "banking",
-        "title": "CFO"
-    }
+	"success": true,
+	"status": 200,
+	"message": {
+		"uid": "666350518e5c4522aed85892",
+		"lastModified": "2024-06-14T09:12:08.886Z",
+		"gender": "male",
+		"organisation_type": "banking",
+		"title": "Manager"
+	}
 }
 ```
 
@@ -30,14 +31,9 @@ Updates specific **profiling** data (ie. organisation type, position etc) for a 
 Sample Success Response:
 ```
 {
-    "success": true,
-    "message": {
-        "acknowledged": true,
-        "modifiedCount": 1,
-        "upsertedId": null,
-        "upsertedCount": 0,
-        "matchedCount": 1
-    }
+	"success": true,
+	"status": 200,
+	"message": "Successfully Modified"
 }
 ```
 
@@ -55,6 +51,7 @@ Sample Success Response:
 ```
 {
     "success": true,
+    "status" : 200,
     "message": {
         "uid": "666350518e5c4522aed85892" // where uid is the unique uid for the user
     }
