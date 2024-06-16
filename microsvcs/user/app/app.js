@@ -25,6 +25,13 @@ app.use(cors())
 
 require('./routes.js')(app);
 
+//Extra Middlewares
+const errorMW = require('./middleware/error.js')
+const responseMW = require('./middleware/response.js')
+
+app.use(responseMW.responseHandler);
+app.use(errorMW.errorHandler);
+
 app.listen(PORT, () => {
     console.log("TTP User/Profile NodeJS-Express-MongoDB Microservice Started");
 })

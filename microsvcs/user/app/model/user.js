@@ -1,26 +1,35 @@
 const database = require('./util/init_db');
+const mongoDB = require('mongodb')
+const UTIL = require('../util/variables.js')
 
 const USER_COLLECTION = database.collection(process.env.USER_COLLECTION);
+const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
 
 /**
- * Insertone user into MongoDB
+ * Insert one user into MongoDB
  * 
- * @param {String} uid - unique uid field
+ * @param {String} email - user's email
  * @param {String} name - name
  * @return success message or error thrown ie duplicate email entry
  */
-exports.createNewUser = async (uid, name) => {
+exports.createNewUser = async (email, name) => {
     try {
+        let new_uid = new mongoDB.ObjectId().toString()
         let result = await USER_COLLECTION.insertOne({
-            user_id: uid,
+            uid: new_uid,
+            email: email,
             name: name
         });
-        return result;
-    } catch (error) {
-        if (error.code == 11000) {
-            throw new Error("Email already exists.")
+        if (!result.acknowledged) { //if it fails to create
+            throw new Error(UTIL.database_error_msg)
+        } else { // else insert a profile object for the profile collection
+            result = await PROFILE_COLLECTION.insertOne({
+                uid: new_uid
+            });
         }
-        throw new Error("Server Error Occurred")
+        return new_uid;
+    } catch (error) {
+        throw new Error(UTIL.database_error_msg);
     }
 }
 

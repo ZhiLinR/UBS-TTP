@@ -1,5 +1,5 @@
 const database = require('./util/init_db');
-
+const UTIL = require('../util/variables.js')
 const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
 
 /**
@@ -10,10 +10,10 @@ const PROFILE_COLLECTION = database.collection(process.env.PROFILE_COLLECTION);
  */
 exports.findByUID = async (uid) => {
     try {
-        let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } });
+        let result = await PROFILE_COLLECTION.findOne({ uid: { $eq: uid } }, { projection: { _id: 0 } });
         return result;
     } catch (error) {
-        throw new Error("Server Error Occurred");
+        throw new Error(UTIL.database_error_msg);
     }
 }
 
@@ -34,6 +34,6 @@ exports.updateOneByUID = async (uid, json_obj) => {
         );
         return result;
     } catch (error) {
-        throw new Error("Server Error Occurred");
+        throw new Error(UTIL.database_error_msg);
     }
 }

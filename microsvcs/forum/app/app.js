@@ -1,3 +1,5 @@
+'use strict' 
+
 
 //retrieve environment variables
 require('dotenv').config({ path: ['.env.local', '.env'] });
