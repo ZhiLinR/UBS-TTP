@@ -43,6 +43,9 @@ Future<List> fetchAlbum() async {
       Future<List> posts = data.map((element) {
         return Post.fromJson(element);
       }).toList();
+
+      // ignore: avoid_print
+      print(posts);
       return posts;
     } else {
       // If the server did not return a 200 OK response,
