@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/navigation_bar.dart';
-import '../fetch/forum.dart';
+import '../fetch/posts.dart';
 import '../widgets/list_item.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -28,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
+    // ignore: avoid_print
+    print(futureAlbum);
   }
 
   int _counter = 0;
@@ -45,30 +47,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const items = 4;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: LayoutBuilder(builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: List.generate(
-                  items, (index) => ItemWidget(text: 'Item $index')),
-            ),
-          ),
+        return Column(
+          children: [
+            Expanded(
+                child: FutureBuilder<List<dynamic>>(
+              future: futureAlbum,
+              builder: (context, snapshot) {
+                // ignore: avoid_print
+                print(snapshot);
+                if (snapshot.hasData &&
+                    snapshot.connectionState == ConnectionState.done) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      Post temp = snapshot.data?[index];
+                      return PostWidget(postData: temp);
+                    },
+                  );
+                }
+                // By default, show a loading spinner.
+                return const CircularProgressIndicator();
+              },
+            ))
+          ],
         );
       }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar:
           const CustomNavigationBar(), // This trailing comma makes auto-formatting nicer for build methods.
     );

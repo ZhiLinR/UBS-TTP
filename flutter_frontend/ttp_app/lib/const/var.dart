@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-final forumEndpoint = dotenv.env["FORUM_URL"];
-final gptEndpoint = dotenv.env["GPT_URL"];
-final userEndpoint = dotenv.env["USER_URL"];
+const forumEndpoint = "http://192.168.1.1:3200/api";
+const gptEndpoint = "http://192.168.1.1:8200/api";
+const userEndpoint = "http://192.168.1.1:3100/api";
 
-final devUID = dotenv.env["DEV_UID"];
+const devUID = "666350518e5c4522aed85892";
