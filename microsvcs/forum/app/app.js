@@ -25,7 +25,12 @@ app.use(forms.array());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
+
 require('./routes.js')(app);
+
+const handler = require('./middleware/handler.js')
+app.use(handler.responseHandler)
+
 
 app.listen(PORT, () => {
     console.log("TTP Forum NodeJS-Express-MongoDB Microservice Started");

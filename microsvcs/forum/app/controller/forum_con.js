@@ -1,6 +1,6 @@
 const QUERIES = require("../model/forum_model.js")
-const HANDLER = require("../util/handler.js")
-
+const HANDLER = require("../middleware/handler.js")
+const UTIL = require('../util/init_res.js')
 /**
  * Responds with an array of all documents contained
  * within the collection on success
@@ -31,21 +31,18 @@ exports.getAllPosts = async (req, res) => {
  * @success HTTP status 200 & array of documents
  * @error HTTP error status with error message
  */
-exports.getPostbyID = async (req, res) => {
+exports.getPostbyID = async (req, res, next) => {
+    const post_id = req.params.post_id;
     try {
-        const post_id = req.params.post_id;
-        const result = await QUERIES.getPostbyID(post_id)
+        const result = await QUERIES.getPostbyID(post_id);
+
         if (result) {
-            res.status(200).send(HANDLER.createSuccessResponse("successful", result));
-        }else{
-            throw new Error("No Reference Found")
+            next(UTIL.formatRes(true, 200, "Successfully Retrieved", result))
+        } else {
+            next({ success: false, status: 404, message: "No Reference Found" })
         }
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send(HANDLER.createErrorResponse(error.message));
-        } else {
-            res.status(404).send(HANDLER.createErrorResponse(error.message));
-        }
+        next({ success: false, status: 500, message: "Database Error" })
     };
 };
 
@@ -81,11 +78,11 @@ exports.updatePost = async (req, res) => {
         const body = req.body;
         const result = await QUERIES.updatePost(post_id, body)
         if (result.modifiedCount == 1) {
-            res.status(200).send(HANDLER.createSuccessResponse("Post Updated", result)); 
+            res.status(200).send(HANDLER.createSuccessResponse("Post Updated", result));
         } else {
             throw new Error("No Reference Found")
         }
-       
+
     } catch (error) {
         if (error.message == "Server Error Occurred") {
             res.status(500).send(HANDLER.createErrorResponse(error.message));

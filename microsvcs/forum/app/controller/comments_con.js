@@ -1,6 +1,6 @@
 const QUERIES = require("../model/comments_model.js")
 const FORUM_QUERIES = require("../model/forum_model.js")
-const HANDLER = require("../util/handler.js")
+const HANDLER = require("../middleware/handler.js")
 /**
  * Add a comment
  * 
