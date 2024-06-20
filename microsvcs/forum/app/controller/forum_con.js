@@ -1,24 +1,19 @@
 const QUERIES = require("../model/forum_model.js")
-const HANDLER = require("../middleware/handler.js")
 const UTIL = require('../util/init_res.js')
 /**
  * Responds with an array of all documents contained
- * within the collection on success
+ * within the collection on success. Does not contain comments??
  * 
  * No parameters expected.
  * @success HTTP status 200 & array of documents
  * @error HTTP error status with error message
  */
-exports.getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req, res, next) => {
     try {
         const result = await QUERIES.getAllPosts()
-        res.status(200).send(HANDLER.createSuccessResponse("successful", result));
+        next(UTIL.formatRes(true, 200, "Successfully Retrieved", result))
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send(HANDLER.createErrorResponse(error.message));
-        } else {
-            res.status(404).send(HANDLER.createErrorResponse(error.message));
-        }
+        next(UTIL.formatRes(false, 500, "Database Error"))
     };
 };
 
@@ -39,10 +34,10 @@ exports.getPostbyID = async (req, res, next) => {
         if (result) {
             next(UTIL.formatRes(true, 200, "Successfully Retrieved", result))
         } else {
-            next({ success: false, status: 404, message: "No Reference Found" })
+            next(UTIL.formatRes(false, 404, "No Reference Found"))
         }
     } catch (error) {
-        next({ success: false, status: 500, message: "Database Error" })
+        next(UTIL.formatRes(false, 500, "Database Error"))
     };
 };
 
@@ -52,17 +47,13 @@ exports.getPostbyID = async (req, res, next) => {
  * 
  * @param {JSON} req.body - json body/form data
  */
-exports.newPost = async (req, res) => {
+exports.newPost = async (req, res, next) => {
+    const body = req.body;
     try {
-        const body = req.body;
         const result = await QUERIES.newPost(body)
-        res.status(200).send(HANDLER.createSuccessResponse("Post Created", result));
+        next(UTIL.formatRes(true, 200, "Post Created", result))
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send(HANDLER.createErrorResponse(error.message));
-        } else {
-            res.status(404).send(HANDLER.createErrorResponse(error.message));
-        }
+        next(UTIL.formatRes(false, 500, "Failed to Create"))
     };
 };
 
@@ -72,23 +63,18 @@ exports.newPost = async (req, res) => {
  * @param {String} req.params.post_id - unique post_id; mongo document object ID
  * @param {JSON} req.body - json body/ form data
  */
-exports.updatePost = async (req, res) => {
+exports.updatePost = async (req, res, next) => {
+    const post_id = req.params.post_id;
+    const body = req.body;
     try {
-        const post_id = req.params.post_id;
-        const body = req.body;
         const result = await QUERIES.updatePost(post_id, body)
         if (result.modifiedCount == 1) {
-            res.status(200).send(HANDLER.createSuccessResponse("Post Updated", result));
+            next(UTIL.formatRes(true, 200, "Post Updated", result))
         } else {
-            throw new Error("No Reference Found")
+            next(UTIL.formatRes(false, 404, "No Reference Found"))
         }
-
     } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send(HANDLER.createErrorResponse(error.message));
-        } else {
-            res.status(404).send(HANDLER.createErrorResponse(error.message));
-        }
+        next(UTIL.formatRes(false, 500, "Database Error"))
     };
 };
 
@@ -98,21 +84,18 @@ exports.updatePost = async (req, res) => {
  * @param {String} post_id - unique post_id field in each document
  * @param {String} uid - gets the admin id for who flagged deletion
  */
-exports.deletePost = async (req, res) => {
+exports.deletePost = async (req, res, next) => {
+    const post_id = req.params.post_id;
+    const uid = req.body.admin_uid;
     try {
-        const post_id = req.params.post_id;
-        const uid = req.body.admin_uid;
         const result = await QUERIES.deletePost(uid, post_id)
-        if (!result.matchedCount) {
-            throw new Error("No Reference Found")
-        }
-        res.status(200).send(HANDLER.createSuccessResponse("Post Flagged for Deletion", result));
-    } catch (error) {
-        if (error.message == "Server Error Occurred") {
-            res.status(500).send(HANDLER.createErrorResponse(error.message));
+        if (result.matchedCount) {
+            next(UTIL.formatRes(true, 200, "Post Flagged for Deletion"))
         } else {
-            res.status(404).send(HANDLER.createErrorResponse(error.message));
+            next(UTIL.formatRes(false, 404, "No Reference Found"))
         }
+    } catch (error) {
+        next(UTIL.formatRes(false, 500, "Database Error"))
     };
 };
 
