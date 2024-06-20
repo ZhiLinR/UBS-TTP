@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                 side:
                     BorderSide(color: custom_color.outlineBrown, width: 3.0))),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: "Home"),
       debugShowCheckedModeBanner: false,
     );
   }

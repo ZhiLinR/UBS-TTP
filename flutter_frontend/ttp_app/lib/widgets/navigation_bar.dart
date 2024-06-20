@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/forum.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -8,8 +9,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBar extends State<CustomNavigationBar> {
-  int currentPageIndex = 1;
-  //String username = getStringFromLocalStorage('username').toString();
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
