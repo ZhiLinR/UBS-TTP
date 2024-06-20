@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../const/var.dart';
+import 'package:ttp_app/const/var.dart';
 
 class PostContent {
   final String title;

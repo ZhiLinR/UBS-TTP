@@ -15,6 +15,7 @@ Color primaryTextBlack = const Color.fromARGB(0xFF, 0x54, 0x54, 0x54);
 
 //Colour for Page headers #643F26
 Color headerTextBrown = const Color.fromARGB(0xFF, 0x64, 0x3F, 0x26);
+
 //Outline
 Color outlineBrown = const Color.fromARGB(0xFF, 0x83, 0x5D, 0x43);
 
@@ -30,22 +31,3 @@ Color activeIcon = const Color.fromARGB(0xFF, 0x54, 0x54, 0x54);
 Color inactiveIcon = const Color.fromARGB(0xFF, 0x53, 0x1D, 0x26);
 //#C58A62
 Color activeIconBG = const Color.fromARGB(0xFF, 0xC5, 0x8A, 0x62);
-/* IconThemeData iconColorChange(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.selected,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return IconThemeData(color: activeIcon);
-  }
-  return IconThemeData(color: inactiveIcon);
-} */
-
-//Checkbox Colours
-//#835D43
-Color checkBox = const Color.fromARGB(0xFF, 0x83, 0x5D, 0x43);
-
-
-//Text Button Data
