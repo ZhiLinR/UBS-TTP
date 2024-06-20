@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import '../pages/forum.dart';
 
-class CustomNavigationBar extends StatefulWidget {
+/* class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
+  
 
   @override
   State<CustomNavigationBar> createState() => _CustomNavigationBar();
 }
 
 class _CustomNavigationBar extends State<CustomNavigationBar> {
-  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
       onDestinationSelected: (int index) {
+        // ignore: avoid_print
+        print(index);
         setState(() {
           currentPageIndex = index;
         });
@@ -49,4 +51,4 @@ class _CustomNavigationBar extends State<CustomNavigationBar> {
       ],
     );
   }
-}
+} */

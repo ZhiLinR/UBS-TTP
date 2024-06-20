@@ -11,7 +11,6 @@ class ForumPage extends StatefulWidget {
 }
 
 class _ForumPageState extends State<ForumPage> {
-  int currentPageIndex = 0;
   late Future<List> futureAlbum;
   @override
   void initState() {
@@ -28,8 +27,6 @@ class _ForumPageState extends State<ForumPage> {
               child: FutureBuilder<List<dynamic>>(
             future: futureAlbum,
             builder: (context, snapshot) {
-              // ignore: avoid_print
-              print(snapshot);
               if (snapshot.hasData &&
                   snapshot.connectionState == ConnectionState.done) {
                 return ListView.builder(

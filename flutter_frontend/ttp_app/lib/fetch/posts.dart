@@ -24,8 +24,6 @@ class Post {
       required this.description});
 
   factory Post.fromJson(Map<String, dynamic> json) {
-    // ignore: avoid_print
-    print(json);
     return switch (json) {
       {
         'post_id': String postID,
@@ -40,13 +38,6 @@ class Post {
             description: json["post_content"]["description"]),
       _ => throw const FormatException('Failed to load album.'),
     };
-    /*  return Post(
-        postID: json["post_id"],
-        createdByUID: json["created_by_uid"],
-        timestamp: DateTime(json["timestamp"]).toString(),
-        title: json["post_content"]["title"]
-        //description: json["post_content"]["description"]);
-        ); */
   }
 }
 
