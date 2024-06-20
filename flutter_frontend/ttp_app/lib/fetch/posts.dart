@@ -9,6 +9,15 @@ class PostContent {
   const PostContent({required this.title, required this.description});
 }
 
+class Comment {
+  final String uid;
+  final String text;
+  final String timestamp;
+
+  const Comment(
+      {required this.uid, required this.text, required this.timestamp});
+}
+
 class Post {
   final String createdByUID;
   final String postID;
@@ -41,7 +50,7 @@ class Post {
   }
 }
 
-Future<List> fetchAlbum() async {
+Future<List> fetchAllPosts() async {
   final response = await http.get(Uri.parse("$forumEndpoint/posts"));
   try {
     if (response.statusCode == 200) {

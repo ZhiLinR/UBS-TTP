@@ -15,7 +15,7 @@ class _ForumPageState extends State<ForumPage> {
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    futureAlbum = fetchAllPosts();
   }
 
   @override

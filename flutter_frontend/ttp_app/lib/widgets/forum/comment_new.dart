@@ -70,3 +70,27 @@ Future<dynamic> postComment(postID, comment) async {
     throw Exception(e.toString());
   }
 }
+
+Future<List> fetchPostComments(postID) async {
+  final response = await http.get(Uri.parse("$forumEndpoint/posts/$postID"));
+  try {
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      var jsonResponse = json.decode(response.body);
+      var data = jsonResponse['content'];
+      List posts = data.map((element) {
+        return Post.fromJson(element);
+      }).toList();
+
+      return posts;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  } catch (e) {
+    e.toString();
+    throw Exception(e.toString());
+  }
+}
