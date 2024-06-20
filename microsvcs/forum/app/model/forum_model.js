@@ -31,7 +31,7 @@ exports.getAllPosts = async () => {
 exports.getPostbyID = async (post_id) => {
     try {
         let post_result = await collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
-        let comment_result = await comment_collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
+        let comment_result = await comment_collection.find({ post_id: post_id }, { projection: { '_id': 0 } }).toArray();
         return { post: post_result, comments: comment_result };
     } catch (error) {
         throw new Error("Server Error Occurred")
