@@ -47,13 +47,15 @@ Sample success response:
 				"description": "Game, Set, Match: Ash Barty, the legendary tennis champion, joins Cloudflare Connect Sydney as our keynote speaker on August 8! Don’t miss this ace opportunity to gain valuable insights from one of Australia’s greatest athletes."
 			}
 		},
-		"comments": {
-			"post_id": "66638414a595f94bde1ce9e1",
-			"comment_id": "66749ed4e25e5c23466251cd",
-			"created_by_uid": "666350518e5c4522aed85892",
-			"timestamp": "2024-06-20T21:27:48.362Z",
-			"comment_content": "1234"
-		}
+		"comments": [
+			{
+				"post_id": "66638414a595f94bde1ce9e1",
+				"comment_id": "66749ed4e25e5c23466251cd",
+				"created_by_uid": "666350518e5c4522aed85892",
+				"timestamp": "2024-06-20T21:27:48.362Z",
+				"comment_content": "1234"
+			}
+		]
 	}
 }
 ```
