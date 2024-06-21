@@ -25,6 +25,8 @@ Sample Success Body:
 
 ## GET /posts/:post_id
 Responds with a single document containing the requested post<br>
+Behaviour is slightly different from GET all; this returns the posts's comments as well.
+
 
 1 parameter expected.
 - @param post_id — unique post_id field in each document
@@ -32,21 +34,29 @@ Responds with a single document containing the requested post<br>
 Sample success response:
 ```
 {
-    "message": "successful",
-    "content": {
-        "post_id": "6663698f1f32384d4443f604",
-        "created_by": "sammy@email.com",
-        "timestamp": "2024-06-07T20:11:59.771Z",
-        "post_content": {
-            "title": "Upcoming Cleanest Coding Workshop",
-            "description": "Sign up for Workshop"
-        },
-        "lastModified": "2024-06-07T21:31:41.053Z",
-        "status": {
-            "flag": "D",
-            "raised_by": null
-        }
-    }
+	"success": true,
+	"status": 200,
+	"message": "Successfully Retrieved",
+	"content": {
+		"post": {
+			"post_id": "66638414a595f94bde1ce9e1",
+			"created_by_uid": "666350518e5c4522aed85892",
+			"timestamp": "2024-06-07T22:05:08.638Z",
+			"post_content": {
+				"title": "Upcoming Fireside Chat",
+				"description": "Game, Set, Match: Ash Barty, the legendary tennis champion, joins Cloudflare Connect Sydney as our keynote speaker on August 8! Don’t miss this ace opportunity to gain valuable insights from one of Australia’s greatest athletes."
+			}
+		},
+		"comments": [
+			{
+				"post_id": "66638414a595f94bde1ce9e1",
+				"comment_id": "66749ed4e25e5c23466251cd",
+				"created_by_uid": "666350518e5c4522aed85892",
+				"timestamp": "2024-06-20T21:27:48.362Z",
+				"comment_content": "1234"
+			}
+		]
+	}
 }
 ```
 

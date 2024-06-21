@@ -2,6 +2,7 @@ const database = require('./util/init_db')
 const { ObjectId } = require('mongodb');
 const VAR = require('../util/variables.js');
 const collection = database.collection(VAR.FORUM_COLLECTION);
+const comment_collection = database.collection(VAR.FORUM_COMMENTS_COLLECTION);
 
 /**
  * finds all posts not flagged for deletion
@@ -12,7 +13,6 @@ const collection = database.collection(VAR.FORUM_COLLECTION);
 exports.getAllPosts = async () => {
     try {
         const query = { "status.flag": { $ne: "D" } };
-
         let result = await collection.find(query, { projection: { '_id': 0 } }).toArray();
         return result;
     } catch (error) {
@@ -30,8 +30,9 @@ exports.getAllPosts = async () => {
  */
 exports.getPostbyID = async (post_id) => {
     try {
-        let result = await collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
-        return result;
+        let post_result = await collection.findOne({ post_id: post_id }, { projection: { '_id': 0 } });
+        let comment_result = await comment_collection.find({ post_id: post_id }, { projection: { '_id': 0 } }).toArray();
+        return { post: post_result, comments: comment_result };
     } catch (error) {
         throw new Error("Server Error Occurred")
     }

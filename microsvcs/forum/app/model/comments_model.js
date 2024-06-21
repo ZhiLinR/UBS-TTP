@@ -43,11 +43,9 @@ exports.deleteComment = async (post_id, uid, comment_id) => {
     try {
         const query = { "post_id": post_id, "created_by_uid": uid, "comment_id": comment_id };
         const result = await collection.deleteOne(query);
-        if (result.deletedCount === 1) {
-            return result;
-        } else {
-            throw new Error()
-        }
+
+        return result;
+
     } catch (error) {
         throw new Error("Server Error Occurred")
     }
