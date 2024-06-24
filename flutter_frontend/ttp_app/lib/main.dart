@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'const/colors.dart' as custom_color;
-import 'pages/landing.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'pages/navigator.dart';
 
 Future main() async {
   runApp(const MyApp());
-  await dotenv.load(fileName: ".env");
 }
 
 class MyApp extends StatelessWidget {
