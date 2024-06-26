@@ -3,7 +3,7 @@ import '../helpers/direction.dart';
 import 'package:flame/sprite.dart';
 
 class Player extends SpriteAnimationComponent with HasGameRef {
-  final double _playerSpeed = 300.0;
+  final double _playerSpeed = 200.0;
   final double _animationSpeed = 0.15;
 
   late final SpriteAnimation _runDownAnimation;
@@ -16,7 +16,8 @@ class Player extends SpriteAnimationComponent with HasGameRef {
 
   Player()
       : super(
-          size: Vector2(42.0, 55.0),
+          size: Vector2(16, 16),
+          anchor: Anchor.center,
         );
 
   @override
@@ -26,9 +27,13 @@ class Player extends SpriteAnimationComponent with HasGameRef {
   }
 
   @override
-  void update(double delta) {
-    super.update(delta);
-    movePlayer(delta);
+  void update(double dt) {
+    super.update(dt);
+    movePlayer(dt);
+  }
+
+  void move(Vector2 delta) {
+    position.add(delta);
   }
 
   void movePlayer(double delta) {
@@ -58,23 +63,23 @@ class Player extends SpriteAnimationComponent with HasGameRef {
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
       image: await gameRef.images.load('player.png'),
-      srcSize: Vector2(84.0, 110.0),
+      srcSize: Vector2(16.0, 32.0),
     );
 
-    _runDownAnimation =
-        spriteSheet.createAnimation(row: 0, stepTime: _animationSpeed, to: 4);
+    _runDownAnimation = spriteSheet.createAnimation(
+        row: 2, stepTime: _animationSpeed, from: 19, to: 24);
 
-    _runLeftAnimation =
-        spriteSheet.createAnimation(row: 2, stepTime: _animationSpeed, to: 4);
+    _runLeftAnimation = spriteSheet.createAnimation(
+        row: 2, stepTime: _animationSpeed, from: 13, to: 18);
 
-    _runUpAnimation =
-        spriteSheet.createAnimation(row: 1, stepTime: _animationSpeed, to: 4);
+    _runUpAnimation = spriteSheet.createAnimation(
+        row: 2, stepTime: _animationSpeed, from: 7, to: 12);
 
-    _runRightAnimation =
-        spriteSheet.createAnimation(row: 3, stepTime: _animationSpeed, to: 4);
+    _runRightAnimation = spriteSheet.createAnimation(
+        row: 2, stepTime: _animationSpeed, from: 1, to: 6);
 
-    _standingAnimation =
-        spriteSheet.createAnimation(row: 0, stepTime: _animationSpeed, to: 1);
+    _standingAnimation = spriteSheet.createAnimation(
+        row: 1, stepTime: _animationSpeed, from: 18, to: 24);
   }
 
   void moveUp(double delta) {

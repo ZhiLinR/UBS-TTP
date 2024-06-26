@@ -26,8 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
         body: <Widget>[
           // Pages Here
           const ForumPage(title: "Forum"),
+          const ForumPage(title: "Forum"),
           const MainGamePage(),
-          const Home(title: "Home"),
           const Home(title: "Messages"),
           const Home(title: "Profile"),
         ][currentPageIndex],

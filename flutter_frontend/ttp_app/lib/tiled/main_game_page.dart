@@ -17,7 +17,7 @@ class MainGameState extends State<MainGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
             GameWidget(game: game),

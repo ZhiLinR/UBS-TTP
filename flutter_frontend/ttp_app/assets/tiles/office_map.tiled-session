@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "office_map.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -22,11 +22,11 @@
             "scaleInDock": 1
         },
         "office_map.tmx": {
-            "scale": 2.671875,
-            "selectedLayer": 0,
+            "scale": 4,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 169.35672514619884,
-                "y": 160.93567251461985
+                "x": 118.25,
+                "y": 223.75
             }
         },
         "office_map.tmx#Office Builder": {
@@ -41,8 +41,9 @@
     "last.exportedFilePath": "C:/Users/ooizh/Documents/GitHub/UBS-TTP/flutter_frontend/ttp_app/assets/tiles",
     "last.externalTilesetPath": "C:/Users/ooizh/Documents/GitHub/UBS-TTP/flutter_frontend/ttp_app/assets/tiles",
     "last.imagePath": "C:/Users/ooizh/Documents/GitHub/UBS-TTP/flutter_frontend/ttp_app/assets/images/2_Modern_Office_Black_Shadow",
-    "map.lastUsedExportFilter": "Tiled map files (*.tmx *.xml)",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "openFiles": [
+        "office_map.tmx"
     ],
     "project": "office_map.tiled-project",
     "recentFiles": [

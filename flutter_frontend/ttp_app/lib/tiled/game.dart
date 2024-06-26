@@ -8,11 +8,12 @@ import 'components/player.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:tiled/tiled.dart';
 
-class MainGame extends FlameGame with KeyboardEvents {
+class MainGame extends FlameGame
+    with KeyboardEvents, PanDetector, ScaleDetector, TapDetector {
   final Player _player = Player();
   late TiledComponent mapComponent;
 
-  static const double _minZoom = 0.5;
+  static const double _minZoom = 0.8;
   static const double _maxZoom = 2.0;
   double _startZoom = _minZoom;
 
@@ -20,41 +21,24 @@ class MainGame extends FlameGame with KeyboardEvents {
   Future<void> onLoad() async {
     camera.viewfinder
       ..zoom = _startZoom
-      ..anchor = Anchor.topLeft;
+      // ..anchor = const Anchor(-0.4, -0.4);
+      ..anchor = Anchor.center;
 
     mapComponent = await TiledComponent.load(
       'office_map.tmx',
-      Vector2(64, 73),
+      Vector2.all(64.0),
     );
-    world.add(mapComponent);
+    mapComponent.debugMode = true;
+    world.add(mapComponent..priority = 0);
 
-    super.onLoad();
-    add(_player);
-  }
-
-  @override
-  KeyEventResult onKeyEvent(
-      KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    //final isKeyDown = event is KeyEvent;
-    Direction? keyDirection;
-
-    if (event.logicalKey == LogicalKeyboardKey.keyA) {
-      keyDirection = Direction.left;
-    } else if (event.logicalKey == LogicalKeyboardKey.keyD) {
-      keyDirection = Direction.right;
-    } else if (event.logicalKey == LogicalKeyboardKey.keyW) {
-      keyDirection = Direction.up;
-    } else if (event.logicalKey == LogicalKeyboardKey.keyS) {
-      keyDirection = Direction.down;
-    }
-
-    if (keyDirection != null) {
-      _player.direction = keyDirection;
-    } else if (_player.direction == keyDirection) {
-      _player.direction = Direction.none;
-    }
-
-    return super.onKeyEvent(event, keysPressed);
+    world.add(_player
+      ..position = size / 2
+      ..width = 64.0
+      ..height = 128.0
+      ..priority = 1
+      ..anchor = Anchor.center);
+    camera.follow(_player);
+    await super.onLoad();
   }
 
   void onJoyPadDirectionChanged(Direction direction) {

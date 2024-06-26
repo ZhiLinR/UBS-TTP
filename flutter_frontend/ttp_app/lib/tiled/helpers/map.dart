@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-
+/* 
 class MapLoader {
   static Future<List<Rect>> readCollisionMap() async {
     final collidableRects = <Rect>[];
@@ -18,4 +18,4 @@ class MapLoader {
 
     return collidableRects;
   }
-}
+} */
