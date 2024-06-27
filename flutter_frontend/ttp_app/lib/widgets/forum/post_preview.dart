@@ -1,12 +1,14 @@
 import 'dart:ui';
 
+import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ttp_app/fetch/posts.dart';
 import 'package:ttp_app/const/colors.dart' as custom_color;
 import 'package:ttp_app/widgets/forum/comment_new.dart';
+import 'package:ttp_app/widgets/forum/comment_list.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   final Post postData;
   final String picture;
   const PostWidget(
@@ -16,27 +18,35 @@ class PostWidget extends StatelessWidget {
       required this.postData});
 
   @override
+  _PostWidgetState createState() {
+    return _PostWidgetState();
+  }
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.hardEdge,
       child: Container(
         child: Column(children: [
-          /* Expanded(
-            flex: 1,
+          Container(
+            margin: EdgeInsets.all(20.0),
             child: Image.network(
-              picture,
+              widget.picture,
               fit: BoxFit.cover,
             ),
-          ), */
+          ),
           ListTile(
+            tileColor: custom_color.secondaryBGBrown,
             titleTextStyle: TextStyle(
                 color: custom_color.headerTextBrown,
                 fontFamily: 'Roboto',
                 fontSize: 20),
             enableFeedback: true,
-            title: Container(child: Text(postData.title)),
+            title: Container(child: Text(widget.postData.title)),
             subtitle: Text(
-              postData.description,
+              widget.postData.description,
             ),
             onTap: () {
               Navigator.push(
@@ -45,7 +55,7 @@ class PostWidget extends StatelessWidget {
                   return Scaffold(
                     appBar: AppBar(title: const Text('Go Back')),
                     body: Hero(
-                      tag: postData.title,
+                      tag: widget.postData.title,
                       child: Material(
                           child: ListView(
                         children: [
@@ -55,11 +65,13 @@ class PostWidget extends StatelessWidget {
                                   fontFamily: 'Roboto',
                                   fontSize: 20),
                               enableFeedback: true,
-                              title: Container(child: Text(postData.title)),
+                              title:
+                                  Container(child: Text(widget.postData.title)),
                               subtitle: Text(
-                                postData.description,
+                                widget.postData.description,
                               )),
-                          CommentForm(postData: postData)
+                          CommentList(postID: widget.postData.postID),
+                          CommentForm(postData: widget.postData),
                         ],
                       )),
                     ),
