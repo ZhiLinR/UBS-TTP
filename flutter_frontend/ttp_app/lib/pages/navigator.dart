@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../fetch/posts.dart';
 import '../pages/forum.dart';
 import '../pages/home.dart';
+import '../pages/profile.dart';
 import 'package:ttp_app/tiled/main_game_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -29,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
           const MainGamePage(),
           const Home(title: "Home"),
           const Home(title: "Messages"),
-          const Home(title: "Profile"),
+          const Profile(title: "Profile"),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {

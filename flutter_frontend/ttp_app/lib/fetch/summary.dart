@@ -3,16 +3,15 @@ import 'dart:convert';
 import 'package:ttp_app/const/var.dart';
 
 class Summary {
-  final String uid;
   final String profileSummary;
 
-  const Summary({required this.uid, required this.profileSummary});
+  const Summary({required this.profileSummary});
   factory Summary.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
-        'profile_summary': String timestamp,
+        'profile_summary': String profileSummary,
       } =>
-        Summary(profileSummary: timestamp, uid: uid),
+        Summary(profileSummary: profileSummary),
       _ => throw const FormatException('Failed to load comments.'),
     };
   }
