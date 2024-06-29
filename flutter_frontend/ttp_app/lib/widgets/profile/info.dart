@@ -6,17 +6,17 @@ import 'package:ttp_app/settings/settings.dart';
 import 'package:ttp_app/fetch/posts.dart';
 
 // Define a custom Form widget.
-class CommentForm extends StatefulWidget {
+class ProfileForm extends StatefulWidget {
   final Post postData;
-  const CommentForm({required this.postData, super.key});
+  const ProfileForm({required this.postData, super.key});
 
   @override
-  _CommentFormState createState() {
-    return _CommentFormState();
+  _ProfileFormState createState() {
+    return _ProfileFormState();
   }
 }
 
-class _CommentFormState extends State<CommentForm> {
+class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final commentController = TextEditingController();
 /*   final Post postData;

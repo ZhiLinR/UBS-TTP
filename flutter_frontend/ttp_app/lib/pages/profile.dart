@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/forum.dart';
+import 'package:ttp_app/widgets/profile/info.dart';
 
 class Profile extends StatefulWidget {
   final String title;
