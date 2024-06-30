@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ttp_app/fetch/posts.dart';
+import 'package:ttp_app/http/posts.dart';
 import 'package:ttp_app/const/colors.dart' as custom_color;
 import 'package:ttp_app/widgets/forum/comment_new.dart';
 import 'package:ttp_app/widgets/forum/comment_list.dart';

@@ -64,3 +64,17 @@ Future<List> fetchAllPosts() async {
     throw Exception(e.toString());
   }
 }
+
+Future<dynamic> postComment(uid, postID, comment) async {
+  try {
+    final response = await http.post(
+        Uri.parse("$forumEndpoint/posts/$postID/comments/"),
+        body: {'uid': uid, 'comment': comment});
+// ignore: avoid_print
+    print(json.decode(response.body));
+    return response;
+  } catch (e) {
+    e.toString();
+    throw Exception(e.toString());
+  }
+}

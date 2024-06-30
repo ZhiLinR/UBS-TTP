@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ttp_app/fetch/comment.dart';
+import 'package:ttp_app/http/comment.dart';
 
 // Define a custom Form widget.
 class CommentList extends StatefulWidget {

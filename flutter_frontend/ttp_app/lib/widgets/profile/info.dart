@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:ttp_app/const/var.dart';
-import 'package:ttp_app/settings/settings.dart';
-import 'package:ttp_app/http/posts.dart';
 import 'package:ttp_app/http/profile.dart';
+import 'package:ttp_app/widgets/alertdialog.dart';
 
 // Define a custom Form widget.
 class ProfileForm extends StatefulWidget {
@@ -90,11 +86,20 @@ class _ProfileFormState extends State<ProfileForm> {
               ElevatedButton(
                 child: const Text('Save Changes'),
                 onPressed: () async {
-                  var response = await postComment(
-                      widget.postData.postID, commentController.text);
+                  var response = await saveProfileChanges(
+                      uid: widget.uid,
+                      profileData: Profile(
+                          gender: genderController.text,
+                          title: titleController.text,
+                          organisationType: organisationController.text));
                   // ignore: avoid_print
-                  print(response);
-                  setState(() {});
+                  print(response.toString());
+                  setState(() {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    openDialog(context, "Successfully Changed!",
+                        "Your Profile has been successfully updated!");
+                    setProfile();
+                  });
                 },
               ),
             ],

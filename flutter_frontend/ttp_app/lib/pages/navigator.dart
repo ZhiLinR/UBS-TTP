@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import '../widgets/navigation_bar.dart';
-import '../fetch/posts.dart';
+import '../http/posts.dart';
 import '../pages/forum.dart';
 import '../pages/home.dart';
 import '../pages/profile.dart';

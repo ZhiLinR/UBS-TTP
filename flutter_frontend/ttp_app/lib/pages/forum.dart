@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../fetch/posts.dart';
+import '../http/posts.dart';
 import '../widgets/forum/post_preview.dart';
 
 class ForumPage extends StatefulWidget {

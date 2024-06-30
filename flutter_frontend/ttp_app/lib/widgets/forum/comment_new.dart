@@ -46,7 +46,7 @@ class _CommentFormState extends State<CommentForm> {
             ElevatedButton(
               child: const Text('Post'),
               onPressed: () async {
-                var response = await postComment(
+                var response = await postComment(widget.postData.createdByUID,
                     widget.postData.postID, commentController.text);
                 // ignore: avoid_print
                 print(response);
@@ -55,19 +55,5 @@ class _CommentFormState extends State<CommentForm> {
             ),
           ],
         ));
-  }
-}
-
-Future<dynamic> postComment(postID, comment) async {
-  try {
-    final response = await http.post(
-        Uri.parse("$forumEndpoint/posts/$postID/comments/"),
-        body: {'uid': uid, 'comment': comment});
-// ignore: avoid_print
-    print(json.decode(response.body));
-    return response;
-  } catch (e) {
-    e.toString();
-    throw Exception(e.toString());
   }
 }
