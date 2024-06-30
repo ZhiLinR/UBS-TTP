@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ttp_app/widgets/profile/info.dart';
+import 'package:ttp_app/settings/settings.dart';
 
 class Profile extends StatefulWidget {
   final String title;
@@ -18,10 +19,7 @@ class _Profile extends State<Profile> {
       margin: const EdgeInsets.all(8.0),
       child: SizedBox.expand(
         child: Center(
-          child: Text(
-            'Profile',
-            style: theme.textTheme.titleLarge,
-          ),
+          child: ProfileForm(uid: uid),
         ),
       ),
     );

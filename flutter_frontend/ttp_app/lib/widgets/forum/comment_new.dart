@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ttp_app/const/var.dart';
 import 'package:ttp_app/settings/settings.dart';
-import 'package:ttp_app/fetch/posts.dart';
+import 'package:ttp_app/http/posts.dart';
 
 // Define a custom Form widget.
 class CommentForm extends StatefulWidget {

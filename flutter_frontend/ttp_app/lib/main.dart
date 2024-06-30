@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'const/colors.dart' as custom_color;
 import 'pages/navigator.dart';
+import 'package:flutter/rendering.dart';
 
 Future main() async {
   runApp(const MyApp());
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //debugPaintSizeEnabled = true;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
