@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import '../widgets/navigation_bar.dart';
-import '../http/posts.dart';
 import '../pages/forum.dart';
 import '../pages/home.dart';
 import '../pages/profile.dart';
@@ -29,7 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
           const ForumPage(title: "Forum"),
           const MainGamePage(),
           const Home(title: "Home"),
-          const Home(title: "Messages"),
           const Profile(title: "Profile"),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
@@ -54,11 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedIcon: Icon(Icons.home_filled),
               icon: Icon(Icons.home_rounded),
               label: 'Home',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.sms),
-              icon: Icon(Icons.sms_rounded),
-              label: 'Chat',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.settings),

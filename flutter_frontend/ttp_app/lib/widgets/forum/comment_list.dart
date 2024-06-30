@@ -36,7 +36,11 @@ class _CommentListState extends State<CommentList> {
               return ListTile(
                   titleTextStyle: TextStyle(fontFamily: 'Roboto', fontSize: 10),
                   enableFeedback: true,
-                  title: Text(temp.uid),
+                  title: Text(temp.uid,
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 10,
+                          color: Colors.black)),
                   subtitle: Text(
                     temp.textContent,
                   ));
