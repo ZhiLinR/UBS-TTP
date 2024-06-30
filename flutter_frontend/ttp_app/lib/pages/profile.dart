@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ttp_app/widgets/profile/info.dart';
+import 'package:ttp_app/widgets/profile/profile_info.dart';
 import 'package:ttp_app/settings/settings.dart';
 
 class Profile extends StatefulWidget {

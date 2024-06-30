@@ -1,12 +1,7 @@
-import 'dart:ui';
-
-import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ttp_app/http/posts.dart';
 import 'package:ttp_app/const/colors.dart' as custom_color;
-import 'package:ttp_app/widgets/forum/comment_form.dart';
-import 'package:ttp_app/widgets/forum/comment_list.dart';
+import 'package:ttp_app/widgets/forum/comments.dart';
 
 class PostWidget extends StatefulWidget {
   final Post postData;
@@ -70,8 +65,7 @@ class _PostWidgetState extends State<PostWidget> {
                               subtitle: Text(
                                 widget.postData.description,
                               )),
-                          CommentList(postID: widget.postData.postID),
-                          CommentForm(postData: widget.postData),
+                          Comments(postData: widget.postData),
                         ],
                       )),
                     ),
