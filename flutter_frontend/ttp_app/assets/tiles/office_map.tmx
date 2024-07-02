@@ -249,7 +249,7 @@
 25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,18,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="Walls" visible="0">
+ <objectgroup id="5" name="Walls">
   <object id="37" x="225.333" y="96.3333" width="141" height="46.3333"/>
   <object id="38" x="0" y="96" width="159" height="47.6667"/>
   <object id="39" x="98" y="121" width="28" height="28.3333"/>
@@ -275,7 +275,7 @@
   <object id="55" x="0" y="256" width="95.6667" height="32.6667"/>
   <object id="56" x="15.6667" y="287.333" width="16" height="14.6667"/>
   <object id="57" x="64" y="287.333" width="16.6667" height="15.6667"/>
-  <object id="58" x="0.333333" y="171.5" width="95.3333" height="8.5"/>
+  <object id="58" x="0.333333" y="168" width="95.3333" height="8.5"/>
   <object id="59" x="273.667" y="153.667" width="44.3333" height="118"/>
   <object id="62" x="258" y="165.455" width="4" height="21.4545"/>
   <object id="63" x="260.545" y="173.455" width="9.27273" height="14.5455"/>

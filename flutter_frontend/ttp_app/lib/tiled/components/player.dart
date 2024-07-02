@@ -1,9 +1,12 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import '../helpers/direction.dart';
+import 'package:ttp_app/tiled/helpers/direction.dart';
 import 'package:flame/sprite.dart';
+import 'package:ttp_app/tiled/world/walls.dart';
 
-class Player extends SpriteAnimationComponent with HasGameRef {
-  final double _playerSpeed = 200.0;
+class Player extends SpriteAnimationComponent
+    with CollisionCallbacks, HasGameRef {
+  final double _playerSpeed = 100.0;
   final double _animationSpeed = 0.15;
 
   late final SpriteAnimation _runDownAnimation;
@@ -16,14 +19,44 @@ class Player extends SpriteAnimationComponent with HasGameRef {
 
   Player()
       : super(
-          size: Vector2(16, 16),
           anchor: Anchor.center,
-        );
+        ) {
+    debugMode = true;
+  }
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    add(RectangleHitbox(
+        position: Vector2(28, 155),
+        isSolid: true,
+        anchor: Anchor.bottomRight,
+        size: Vector2.all(8.0),
+        collisionType: CollisionType.active));
     await _loadAnimations().then((_) => {animation = _standingAnimation});
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Walls) {
+      switch (direction) {
+        case Direction.down:
+          moveUp(2.0);
+          break;
+        case Direction.up:
+          direction = Direction.down;
+          break;
+        case Direction.right:
+          direction = Direction.left;
+          break;
+        case Direction.left:
+          direction = Direction.right;
+          break;
+        default:
+          direction = Direction.none;
+      }
+    }
   }
 
   @override

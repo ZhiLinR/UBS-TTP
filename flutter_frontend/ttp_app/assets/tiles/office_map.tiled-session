@@ -42,6 +42,7 @@
     "last.externalTilesetPath": "C:/Users/ooizh/Documents/GitHub/UBS-TTP/flutter_frontend/ttp_app/assets/tiles",
     "last.imagePath": "C:/Users/ooizh/Documents/GitHub/UBS-TTP/flutter_frontend/ttp_app/assets/images/2_Modern_Office_Black_Shadow",
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
     "openFiles": [
         "office_map.tmx"
     ],

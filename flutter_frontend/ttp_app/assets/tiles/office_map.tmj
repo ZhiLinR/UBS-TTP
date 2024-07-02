@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"tmx",
+         "target":"office_map.tmx"
+        }
+    },
  "height":20,
  "infinite":false,
  "layers":[
@@ -506,7 +514,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -590,7 +598,7 @@
                  "visible":true,
                  "width":95.3333,
                  "x":0.333333,
-                 "y":171.5
+                 "y":168
                 }, 
                 {
                  "height":118,

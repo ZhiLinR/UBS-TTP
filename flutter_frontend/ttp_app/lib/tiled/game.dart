@@ -3,19 +3,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
-import 'helpers/direction.dart';
-import 'components/player.dart';
+import 'package:ttp_app/tiled/world/walls.dart';
+import 'package:ttp_app/tiled/helpers/direction.dart';
+import 'package:ttp_app/tiled/components/player.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:tiled/tiled.dart';
 
 class MainGame extends FlameGame
-    with KeyboardEvents, PanDetector, ScaleDetector, TapDetector {
+    with
+        KeyboardEvents,
+        PanDetector,
+        ScaleDetector,
+        TapDetector,
+        HasCollisionDetection {
   final Player _player = Player();
   late TiledComponent mapComponent;
 
-  static const double _minZoom = 0.8;
-  static const double _maxZoom = 2.0;
-  double _startZoom = _minZoom;
+  static const double _minZoom = 3.0;
+  final double _startZoom = _minZoom;
 
   @override
   Future<void> onLoad() async {
@@ -26,18 +30,31 @@ class MainGame extends FlameGame
 
     mapComponent = await TiledComponent.load(
       'office_map.tmx',
-      Vector2.all(64.0),
+      Vector2.all(16.0),
     );
     mapComponent.debugMode = true;
     world.add(mapComponent..priority = 0);
 
     world.add(_player
-      ..position = size / 2
-      ..width = 64.0
-      ..height = 128.0
+      ..position = Vector2(176, 128)
+      ..width = 16.0
+      ..height = 32.0
       ..priority = 1
       ..anchor = Anchor.center);
     camera.follow(_player);
+    final objectGroup = mapComponent.tileMap.getLayer<ObjectGroup>('Walls');
+    for (final object in objectGroup!.objects) {
+      world.add(Walls(
+          size: Vector2(object.width, object.height),
+          position: Vector2(object.x, object.y)));
+    }
+    final furniture =
+        mapComponent.tileMap.getLayer<ObjectGroup>('Collidabbles');
+    for (final object in furniture!.objects) {
+      world.add(Walls(
+          size: Vector2(object.width, object.height),
+          position: Vector2(object.x, object.y)));
+    }
     await super.onLoad();
   }
 
