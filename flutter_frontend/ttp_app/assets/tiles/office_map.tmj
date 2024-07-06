@@ -3,8 +3,7 @@
     {
      "export":
         {
-         "format":"tmx",
-         "target":"office_map.tmx"
+         "format":"tmx"
         }
     },
  "height":20,
@@ -514,7 +513,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 

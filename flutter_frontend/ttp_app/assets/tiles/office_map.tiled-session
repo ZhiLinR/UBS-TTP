@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "office_map.tmx",
+    "activeFile": "office_map.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -19,6 +19,20 @@
             "scaleInDock": 1
         },
         "Office Items.tsx": {
+            "scaleInDock": 1
+        },
+        "office_map.tmj": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 82.66666666666666,
+                "y": 205.99999999999997
+            }
+        },
+        "office_map.tmj#Office Builder": {
+            "scaleInDock": 1
+        },
+        "office_map.tmj#Office Items": {
             "scaleInDock": 1
         },
         "office_map.tmx": {
@@ -44,10 +58,11 @@
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "office_map.tmx"
+        "office_map.tmj"
     ],
     "project": "office_map.tiled-project",
     "recentFiles": [
+        "office_map.tmj",
         "office_map.tmx",
         "C:/Users/ooizh/Documents/Tiled/Office Items.tsx"
     ],

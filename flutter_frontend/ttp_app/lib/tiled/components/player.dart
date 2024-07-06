@@ -42,7 +42,7 @@ class Player extends SpriteAnimationComponent
     if (other is Walls) {
       switch (direction) {
         case Direction.down:
-          moveUp(2.0);
+          direction = Direction.up;
           break;
         case Direction.up:
           direction = Direction.down;
