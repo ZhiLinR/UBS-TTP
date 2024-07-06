@@ -3,9 +3,12 @@ import 'package:flame/game.dart';
 import 'helpers/joypad.dart';
 
 import 'game.dart';
+import 'package:ttp_app/http/scenario.dart';
 
 class MainGamePage extends StatefulWidget {
-  const MainGamePage({super.key});
+  final String uid;
+  final String? topic;
+  const MainGamePage({super.key, required this.uid, this.topic});
 
   @override
   MainGameState createState() => MainGameState();
@@ -13,6 +16,12 @@ class MainGamePage extends StatefulWidget {
 
 class MainGameState extends State<MainGamePage> {
   MainGame game = MainGame();
+  late Future<Map<String, dynamic>> futureScenario;
+  @override
+  void initState() {
+    super.initState();
+    futureScenario = generateScenario(widget.uid, widget.topic);
+  }
 
   @override
   Widget build(BuildContext context) {

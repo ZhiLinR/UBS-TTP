@@ -3,6 +3,7 @@ import '../pages/forum.dart';
 import '../pages/home.dart';
 import '../pages/profile.dart';
 import 'package:ttp_app/tiled/main_game_page.dart';
+import 'package:ttp_app/settings/settings.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: <Widget>[
           // Pages Here
           const ForumPage(title: "Forum"),
-          const MainGamePage(),
+          const MainGamePage(uid: uid),
           const Home(title: "Home"),
           const Profile(title: "Profile"),
         ][currentPageIndex],

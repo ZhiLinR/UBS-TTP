@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../pages/forum.dart';
 
 class Home extends StatefulWidget {
   final String title;

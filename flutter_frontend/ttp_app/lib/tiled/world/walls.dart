@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:ttp_app/tiled/components/player.dart';
 
 class Walls extends PositionComponent with CollisionCallbacks {
   Walls({required size, required position})
