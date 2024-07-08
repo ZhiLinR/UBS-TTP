@@ -73,6 +73,8 @@ flutter:
     - assets/images/1_Room_Builder_Office/Room_Builder_Office_16x16.png
     - assets/images/2_Modern_Office_Black_Shadow/Modern_Office_Black_Shadow.png
     - assets/images/player.png
+    - assets/images/npcs/Premade_Character_05.png
+    - assets/images/npcs/Premade_Character_06.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

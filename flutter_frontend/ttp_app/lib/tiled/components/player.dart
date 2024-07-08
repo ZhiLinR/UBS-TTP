@@ -28,34 +28,17 @@ class Player extends SpriteAnimationComponent
   Future<void> onLoad() async {
     super.onLoad();
     add(RectangleHitbox(
-        position: Vector2(28, 155),
+        anchor: Anchor.center,
         isSolid: true,
-        anchor: Anchor.bottomRight,
         size: Vector2.all(8.0),
         collisionType: CollisionType.active));
     await _loadAnimations().then((_) => {animation = _standingAnimation});
   }
 
   @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Walls) {
-      switch (direction) {
-        case Direction.down:
-          direction = Direction.up;
-          break;
-        case Direction.up:
-          direction = Direction.down;
-          break;
-        case Direction.right:
-          direction = Direction.left;
-          break;
-        case Direction.left:
-          direction = Direction.right;
-          break;
-        default:
-          direction = Direction.none;
-      }
+      position = intersectionPoints.first;
     }
   }
 

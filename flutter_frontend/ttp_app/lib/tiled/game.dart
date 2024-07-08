@@ -41,6 +41,7 @@ class MainGame extends FlameGame
       ..height = 32.0
       ..priority = 1
       ..anchor = Anchor.center);
+
     camera.follow(_player);
     final objectGroup = mapComponent.tileMap.getLayer<ObjectGroup>('Walls');
     for (final object in objectGroup!.objects) {
@@ -48,13 +49,13 @@ class MainGame extends FlameGame
           size: Vector2(object.width, object.height),
           position: Vector2(object.x, object.y)));
     }
-    final furniture =
+    /* final furniture =
         mapComponent.tileMap.getLayer<ObjectGroup>('Collidabbles');
     for (final object in furniture!.objects) {
       world.add(Walls(
           size: Vector2(object.width, object.height),
           position: Vector2(object.x, object.y)));
-    }
+    } */
     await super.onLoad();
   }
 
