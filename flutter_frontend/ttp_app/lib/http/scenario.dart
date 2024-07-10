@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ttp_app/const/var.dart';
-import 'package:ttp_app/settings/settings.dart';
+import 'dart:math';
 
 class Scenario {
   final Options options;
@@ -42,9 +42,23 @@ class Options {
 }
 
 Future<Scenario> generateScenario(uid, String? topic) async {
-  final response = await http.post(Uri.parse("$gptEndpoint/scenario/"), body: {
-    "uid": uid,
-  });
+  const _topic_list = [
+    "Diversity and Inclusion (D&I) Initiatives",
+    "Cultural Competence",
+    "Gender Equality",
+    "LGBTQ+ Inclusion",
+    "Disability Inclusion",
+    "Racial and Ethnic Diversity",
+    "Age Diversity",
+    "Mental Health Awareness",
+    "Workplace Inclusion",
+    "Inclusive Technology",
+    "Community Engagement"
+  ];
+  final random = new Random();
+  var element = _topic_list[random.nextInt(_topic_list.length)];
+  final response = await http.post(Uri.parse("$gptEndpoint/scenario/"),
+      body: {"uid": "666350518e5c4522aed85892", "topic": element});
   try {
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);

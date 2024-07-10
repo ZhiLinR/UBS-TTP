@@ -42,8 +42,7 @@ class Player extends SpriteAnimationComponent
     } else if (other is DefaultNPCSprites) {
       position = Vector2(
           intersectionPoints.last.x + 10.0, intersectionPoints.last.y + 10.0);
-      const menuOptionsIdentifier = 'MenuOptions';
-      game.overlays.add(menuOptionsIdentifier);
+      game.overlays.add('MenuOptions');
     }
   }
 

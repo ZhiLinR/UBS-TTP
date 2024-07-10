@@ -60,9 +60,8 @@ class MainGame extends FlameGame
           position: Vector2(object.x, object.y)));
     }
     camera.follow(_player);
-
-    const initialContext = 'InitialText';
-    game.overlays.add(initialContext);
+    game.overlays.add('InitialText');
+    game.overlays.remove('Joystick');
   }
 
   void onJoyPadDirectionChanged(Direction direction) {

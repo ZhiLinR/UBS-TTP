@@ -25,20 +25,30 @@ class _Profile extends State<Profile> {
     final ThemeData theme = Theme.of(context);
     return Column(
       children: [
-        FutureBuilder<Summary>(
-          future: futureSummary,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data!.summary);
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
+        ProfileForm(uid: uid),
+        Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.all(20.0),
+          child: Text(
+            "How we feel about you:",
+            style: TextStyle(fontSize: 20.0),
+          ),
         ),
-        ProfileForm(uid: uid)
+        Container(
+          padding: EdgeInsets.all(20.0),
+          child: FutureBuilder<Summary>(
+            future: futureSummary,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.summary);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
+          ),
+        ),
       ],
     );
     /*  return Card(

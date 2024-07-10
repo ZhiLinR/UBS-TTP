@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../pages/forum.dart';
-import 'summary.dart';
 import '../pages/profile.dart';
 import 'package:ttp_app/tiled/main_game_page.dart';
 import 'package:ttp_app/settings/settings.dart';
@@ -14,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentPageIndex = 2;
+  int currentPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
