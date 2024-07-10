@@ -7,6 +7,7 @@ import 'package:ttp_app/tiled/world/walls.dart';
 import 'package:ttp_app/tiled/helpers/direction.dart';
 import 'package:ttp_app/tiled/components/player.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:ttp_app/tiled/world/npc.dart';
 
 class MainGame extends FlameGame
     with
@@ -14,8 +15,10 @@ class MainGame extends FlameGame
         PanDetector,
         ScaleDetector,
         TapDetector,
-        HasCollisionDetection {
+        HasCollisionDetection,
+        HasGameRef {
   final Player _player = Player();
+  final DefaultNPCSprites _sprite1 = DefaultNPCSprites();
   late TiledComponent mapComponent;
 
   static const double _minZoom = 3.0;
@@ -23,6 +26,7 @@ class MainGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
+    await super.onLoad();
     camera.viewfinder
       ..zoom = _startZoom
       // ..anchor = const Anchor(-0.4, -0.4);
@@ -41,22 +45,24 @@ class MainGame extends FlameGame
       ..height = 32.0
       ..priority = 1
       ..anchor = Anchor.center);
-
     camera.follow(_player);
+    world.add(_sprite1
+      ..position = Vector2(117, 239)
+      ..width = 16.0
+      ..height = 32.0
+      ..priority = 1
+      ..anchor = Anchor.center);
+
     final objectGroup = mapComponent.tileMap.getLayer<ObjectGroup>('Walls');
     for (final object in objectGroup!.objects) {
       world.add(Walls(
           size: Vector2(object.width, object.height),
           position: Vector2(object.x, object.y)));
     }
-    /* final furniture =
-        mapComponent.tileMap.getLayer<ObjectGroup>('Collidabbles');
-    for (final object in furniture!.objects) {
-      world.add(Walls(
-          size: Vector2(object.width, object.height),
-          position: Vector2(object.x, object.y)));
-    } */
-    await super.onLoad();
+    camera.follow(_player);
+
+    const initialContext = 'InitialText';
+    game.overlays.add(initialContext);
   }
 
   void onJoyPadDirectionChanged(Direction direction) {

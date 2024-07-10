@@ -23,10 +23,10 @@
         },
         "office_map.tmj": {
             "scale": 3,
-            "selectedLayer": 0,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 82.66666666666666,
-                "y": 205.99999999999997
+                "x": 138,
+                "y": 171.83333333333334
             }
         },
         "office_map.tmj#Office Builder": {

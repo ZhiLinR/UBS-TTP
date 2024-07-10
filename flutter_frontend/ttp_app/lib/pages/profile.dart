@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ttp_app/widgets/profile/profile_info.dart';
 import 'package:ttp_app/settings/settings.dart';
 
+import 'package:ttp_app/http/summary.dart';
+
 class Profile extends StatefulWidget {
   final String title;
   const Profile({super.key, required this.title});
@@ -11,10 +13,35 @@ class Profile extends StatefulWidget {
 }
 
 class _Profile extends State<Profile> {
+  late final Future<Summary> futureSummary;
+  @override
+  void initState() {
+    futureSummary = fetchProfileSummary(uid: "666350518e5c4522aed85892");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Card(
+    return Column(
+      children: [
+        FutureBuilder<Summary>(
+          future: futureSummary,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(snapshot.data!.summary);
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+
+            // By default, show a loading spinner.
+            return const CircularProgressIndicator();
+          },
+        ),
+        ProfileForm(uid: uid)
+      ],
+    );
+    /*  return Card(
       shadowColor: Colors.transparent,
       margin: const EdgeInsets.all(8.0),
       child: SizedBox.expand(
@@ -22,6 +49,6 @@ class _Profile extends State<Profile> {
           child: ProfileForm(uid: uid),
         ),
       ),
-    );
+    ); */
   }
 }

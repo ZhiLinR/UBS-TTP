@@ -3,6 +3,8 @@ import 'package:flame/components.dart';
 import 'package:ttp_app/tiled/helpers/direction.dart';
 import 'package:flame/sprite.dart';
 import 'package:ttp_app/tiled/world/walls.dart';
+import 'package:flame/layout.dart';
+import 'package:ttp_app/tiled/world/npc.dart';
 
 class Player extends SpriteAnimationComponent
     with CollisionCallbacks, HasGameRef {
@@ -17,10 +19,7 @@ class Player extends SpriteAnimationComponent
 
   Direction direction = Direction.none;
 
-  Player()
-      : super(
-          anchor: Anchor.center,
-        ) {
+  Player() : super() {
     debugMode = true;
   }
 
@@ -28,9 +27,9 @@ class Player extends SpriteAnimationComponent
   Future<void> onLoad() async {
     super.onLoad();
     add(RectangleHitbox(
-        anchor: Anchor.center,
+        anchor: Anchor.topLeft,
         isSolid: true,
-        size: Vector2.all(8.0),
+        size: Vector2(16.0, 32.0),
         collisionType: CollisionType.active));
     await _loadAnimations().then((_) => {animation = _standingAnimation});
   }
@@ -38,7 +37,13 @@ class Player extends SpriteAnimationComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Walls) {
-      position = intersectionPoints.first;
+      position = Vector2(
+          intersectionPoints.last.x + 10.0, intersectionPoints.last.y + 10.0);
+    } else if (other is DefaultNPCSprites) {
+      position = Vector2(
+          intersectionPoints.last.x + 10.0, intersectionPoints.last.y + 10.0);
+      const menuOptionsIdentifier = 'MenuOptions';
+      game.overlays.add(menuOptionsIdentifier);
     }
   }
 

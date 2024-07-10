@@ -4,6 +4,8 @@ import 'helpers/joypad.dart';
 
 import 'game.dart';
 import 'package:ttp_app/http/scenario.dart';
+import 'package:ttp_app/widgets/alertdialog.dart';
+import 'package:typewritertext/typewritertext.dart';
 
 class MainGamePage extends StatefulWidget {
   final String uid;
@@ -16,11 +18,15 @@ class MainGamePage extends StatefulWidget {
 
 class MainGameState extends State<MainGamePage> {
   MainGame game = MainGame();
-  late Future<Map<String, dynamic>> futureScenario;
+  late final Scenario futureScenario;
   @override
   void initState() {
     super.initState();
-    futureScenario = generateScenario(widget.uid, widget.topic);
+    setScenario();
+  }
+
+  void setScenario() async {
+    futureScenario = await generateScenario(widget.uid, widget.topic);
   }
 
   @override
@@ -29,7 +35,68 @@ class MainGameState extends State<MainGamePage> {
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
-            GameWidget(game: game),
+            GameWidget(game: game, overlayBuilderMap: {
+              'MenuOptions': (context, Game game) {
+                return Column(
+                  children: [
+                    AlertDialog(
+                      title: const Text('Kyle'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('Hey Sam,\n'),
+                            SizedBox(
+                              width: 200,
+                              height: 300,
+                              child: TypeWriter.text(
+                                futureScenario.scenario,
+                                duration: const Duration(milliseconds: 30),
+                              ),
+                            ),
+                            Text('Do you have any advice?'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Advice Kyle'),
+                          onPressed: () {
+                            const menuOptionsIdentifier = 'PauseMenu';
+                            game.overlays.remove(menuOptionsIdentifier);
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              },
+              'InitialText': (context, Game game) {
+                return Column(
+                  children: [
+                    AlertDialog(
+                      title: const Text('New Email!'),
+                      content: const SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text(
+                                "Hi Sam, \n\nCould we meet in the office today?\n\nRegards, \nKyle"),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Find Kyle!'),
+                          onPressed: () {
+                            const initialContext = 'InitialText';
+                            game.overlays.remove(initialContext);
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+            }),
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(

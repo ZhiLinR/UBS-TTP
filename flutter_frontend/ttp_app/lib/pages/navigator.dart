@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../pages/forum.dart';
-import '../pages/home.dart';
+import 'summary.dart';
 import '../pages/profile.dart';
 import 'package:ttp_app/tiled/main_game_page.dart';
 import 'package:ttp_app/settings/settings.dart';
@@ -25,9 +25,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: <Widget>[
           // Pages Here
-          const ForumPage(title: "Forum"),
           const MainGamePage(uid: uid),
-          const Home(title: "Home"),
+          const ForumPage(title: "Forum"),
           const Profile(title: "Profile"),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
@@ -39,19 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedIndex: currentPageIndex,
           destinations: const <Widget>[
             NavigationDestination(
-              selectedIcon: Icon(Icons.forum),
-              icon: Icon(Icons.forum_outlined),
-              label: 'Forum',
-            ),
-            NavigationDestination(
               selectedIcon: Icon(Icons.gamepad),
               icon: Icon(Icons.gamepad_rounded),
               label: 'Builder',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.home_filled),
-              icon: Icon(Icons.home_rounded),
-              label: 'Home',
+              selectedIcon: Icon(Icons.forum),
+              icon: Icon(Icons.forum_outlined),
+              label: 'Forum',
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.settings),

@@ -510,18 +510,7 @@
                  "width":5.33333,
                  "x":224.667,
                  "y":134.333
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":13,
-         "name":"Collidabbles",
-         "objects":[
+                }, 
                 {
                  "height":31,
                  "id":50,
@@ -664,7 +653,8 @@
                  "width":3.63636,
                  "x":258.182,
                  "y":230.727
-                }, 
+                },
+            
                 {
                  "height":12.3636,
                  "id":67,
@@ -782,7 +772,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":83,
+ "nextobjectid":100,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
